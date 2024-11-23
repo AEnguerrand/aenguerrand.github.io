@@ -1,0 +1,58 @@
+baseURL: https://enguerrand.tech/
+languageCode: en-us
+title: Enguerrand Allamel
+
+theme: ["PaperMod"]
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+
+minify:
+  disableXML: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  description: "Enguerrand Allamel's personal website"
+  author: Enguerrand Allamel
+
+  defaultTheme: auto
+  # disableThemeToggle: true
+  ShowShareButtons: true
+  ShowReadingTime: true
+  # disableSpecial1stPost: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+  # comments: false
+
+  profileMode:
+    enabled: true
+    title: Enguerrand Allamel
+    imageUrl: "https://avatars.githubusercontent.com/u/4191694"
+    imageTitle: Enguerrand Allamel
+    # imageWidth: 120
+    # imageHeight: 120
+
+  socialIcons:
+    - name: linkedin
+      title: Linkedin
+      url: "https://linkedin.enguerrand.tech"
+    - name: github
+      title: Github
+      url: "https://github.enguerrand.tech"
