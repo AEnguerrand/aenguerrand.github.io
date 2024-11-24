@@ -21,6 +21,13 @@ outputs:
     - RSS
     - JSON
 
+menu:
+  main:
+    - identifier: talks
+      name: Talks
+      url: /talks/
+      weight: 10
+
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   description: "Enguerrand Allamel's personal website"
@@ -48,6 +55,9 @@ params:
     imageTitle: Enguerrand Allamel
     # imageWidth: 120
     # imageHeight: 120
+    buttons:
+      - name: Talks
+        url: "/talks"
 
   socialIcons:
     - name: linkedin
