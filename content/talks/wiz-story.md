@@ -1,6 +1,6 @@
 ---
 author: ["Enguerrand Allamel"]
-title: "Protecting Ledger's Infrastructure: Cloud Security at Scale for Cryptocurrency Assets"
+title: "Wiz.io x Ledger: Protecting Ledger's Infrastructure: Cloud Security at Scale for Cryptocurrency Assets"
 date: "2025-02-20"
 tags:
   [
@@ -78,4 +78,4 @@ Customer story on Wiz website: [Protecting Ledger's infrastructure](https://www.
 
 ### Video Presentation
 
-{{< youtube 0w_dBmvu5l8 >}}
+{{< youtube Ia5aTmxD6sw >}}

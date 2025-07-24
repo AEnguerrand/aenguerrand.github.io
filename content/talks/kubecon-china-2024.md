@@ -1,6 +1,6 @@
 ---
 author: ["Enguerrand Allamel"]
-title: "Securing the Supply Chain: A Practical Guide to SLSA Compliance from Build to Runtime | 保障供应链安全：从构建到运行的SLSA合规实用指南"
+title: "KubeCon CloudNativeCon China 2024: Securing the Supply Chain: A Practical Guide to SLSA Compliance from Build to Runtime | 保障供应链安全：从构建到运行的SLSA合规实用指南"
 date: "2024-08-21"
 tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
