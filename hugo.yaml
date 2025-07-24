@@ -46,7 +46,7 @@ params:
   ShowAllPagesInArchive: true
   ShowPageNums: true
   ShowToc: true
-  # comments: false
+  comments: false
 
   profileMode:
     enabled: true
