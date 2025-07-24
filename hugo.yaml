@@ -51,8 +51,10 @@ params:
   profileMode:
     enabled: true
     title: Enguerrand Allamel
+    subtitle: Staff Cloud Security Engineer at Ledger
     imageUrl: "https://avatars.githubusercontent.com/u/4191694"
     imageTitle: Enguerrand Allamel
+    status: "Available for speaking opportunities"
     # imageWidth: 120
     # imageHeight: 120
     description: |
@@ -61,6 +63,33 @@ params:
       With expertise in cloud security, software development, and DevOps practices, I work on ensuring the highest security standards in the fintech industry. I specialize in software supply chain security, compliance frameworks, and modern cloud-native security solutions.
       
       I regularly speak at conferences like KubeCon, AWS Summit, and other industry events, sharing insights about cloud security, DevOps best practices, and modern security architectures. Here you'll find my talks, presentations, and thoughts on these topics.
+    skills:
+      - name: "Cloud Security"
+        category: "security"
+      - name: "Kubernetes"
+        category: "platform"
+      - name: "AWS"
+        category: "cloud"
+      - name: "DevOps"
+        category: "methodology"
+      - name: "Go"
+        category: "language"
+      - name: "Python"
+        category: "language"
+      - name: "Terraform"
+        category: "iac"
+      - name: "Docker"
+        category: "platform"
+      - name: "Ansible"
+        category: "iac"
+      - name: "GitOps"
+        category: "methodology"
+      - name: "Software Supply Chain Security"
+        category: "security"
+      - name: "DevSecOps"
+        category: "security"
+      - name: "CI/CD"
+        category: "methodology"
     buttons:
       - name: Talks
         url: "/talks"

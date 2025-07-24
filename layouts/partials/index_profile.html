@@ -33,13 +33,16 @@
         <h1 class="profile-title">{{ .title | default site.Title | markdownify }}</h1>
         <span class="profile-subtitle">{{ .subtitle | markdownify }}</span>
         
-        {{- if .description }}
-        <div class="profile-description">
-            <div class="description-content">
-                {{ .description | markdownify }}
+        {{- /* Status indicator temporarily hidden
+        {{- if .status }}
+        <div class="profile-status">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span class="status-text">{{ .status }}</span>
             </div>
         </div>
         {{- end }}
+        */ -}}
         
         {{- partial "social_icons.html" -}}
 
@@ -60,6 +63,24 @@
                 </span>
             </a>
             {{- end }}
+        </div>
+        {{- end }}
+
+        {{- if .skills }}
+        <div class="skills-section">
+            <div class="skills-cloud">
+                {{- range .skills }}
+                <span class="skill-tag" data-category="{{ .category }}">{{ .name }}</span>
+                {{- end }}
+            </div>
+        </div>
+        {{- end }}
+        
+        {{- if .description }}
+        <div class="profile-description">
+            <div class="description-content">
+                {{ .description | markdownify }}
+            </div>
         </div>
         {{- end }}
     </div>
