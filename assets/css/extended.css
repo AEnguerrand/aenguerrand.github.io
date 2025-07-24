@@ -1,101 +1,43 @@
 /* ===== PROFILE PAGE CUSTOMIZATIONS ===== */
 
-/* CSS Variables for animations */
-:root {
-    --primary-rgb: 30, 30, 30;
-    --animation-speed: 1;
-}
-
-.dark {
-    --primary-rgb: 218, 218, 219;
-}
-
 /* Keyframe Animations */
 @keyframes fadeInUp {
-    0% {
+    from {
         opacity: 0;
         transform: translateY(30px);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
 @keyframes fadeInScale {
-    0% {
+    from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.9);
     }
-    100% {
+    to {
         opacity: 1;
         transform: scale(1);
     }
 }
 
 @keyframes slideInFromLeft {
-    0% {
+    from {
         opacity: 0;
         transform: translateX(-20px);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-/* Subtle looping animations */
-@keyframes gentleFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes subtlePulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.02);
-        opacity: 0.95;
-    }
-}
-
-@keyframes softGlow {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(var(--primary-rgb), 0.1);
-    }
-    50% {
-        box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.2);
-    }
-}
-
-@keyframes gentleRotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% center;
-    }
-    100% {
-        background-position: 200% center;
     }
 }
 
 /* Enhanced profile layout with animations */
 .profile {
     padding: 40px 20px;
-    animation: fadeInUp 0.8s ease-out !important;
+    animation: fadeInUp 0.8s ease-out;
 }
 
 .profile_inner {
@@ -109,15 +51,14 @@
 
 /* Profile Image Animation */
 .profile_inner img {
-    animation: fadeInScale 0.6s ease-out 0.2s both, gentleFloat 6s ease-in-out infinite 2s !important;
+    animation: fadeInScale 0.6s ease-out 0.2s both;
     border-radius: 50%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile_inner img:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-    animation-play-state: paused;
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Title Animations */
@@ -126,14 +67,26 @@
     font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
-    animation: fadeInUp 0.6s ease-out 0.4s both, subtlePulse 8s ease-in-out infinite 3s !important;
-    color: var(--primary);
-    transition: color 0.3s ease !important;
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: fadeInUp 0.6s ease-out 0.4s both, gradientShift 3s ease-in-out infinite;
 }
 
-.profile-title:hover {
-    color: var(--secondary) !important;
-    animation-play-state: paused;
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not (background-clip: text) {
+    .profile-title {
+        color: var(--primary);
+        background: none;
+    }
 }
 
 .profile-subtitle {
@@ -141,12 +94,12 @@
     opacity: 0.8;
     margin-bottom: 8px;
     text-align: center;
-    animation: fadeInUp 0.6s ease-out 0.6s both !important;
-    transition: opacity 0.3s ease !important;
+    animation: fadeInUp 0.6s ease-out 0.6s both;
+    transition: opacity 0.3s ease;
 }
 
 .profile-subtitle:hover {
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* Enhanced Profile Description */
@@ -159,18 +112,14 @@
 }
 
 .description-content {
-    background: var(--theme);
-    border: 1px solid var(--tertiary);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 28px 32px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    opacity: 0.9;
-    animation: shimmer 8s ease-in-out infinite;
-    background: linear-gradient(90deg, var(--theme) 25%, rgba(var(--tertiary), 0.1) 50%, var(--theme) 75%);
-    background-size: 200% 100%;
 }
 
 .description-content::before {
@@ -179,18 +128,15 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: var(--tertiary);
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     border-radius: 12px 12px 0 0;
-    opacity: 0.5;
 }
 
 .description-content:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border-color: var(--secondary);
-    opacity: 1;
-    animation-play-state: paused;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary);
 }
 
 .description-content p {
@@ -222,12 +168,12 @@
 .profile .social_icons {
     margin: 16px 0 24px 0;
     gap: 16px;
-    animation: fadeInUp 0.6s ease-out 1s both !important;
+    animation: fadeInUp 0.6s ease-out 1s both;
 }
 
 .profile .social_icons a {
-    transition: all 0.3s ease !important;
-    animation: fadeInScale 0.4s ease-out calc(1.2s + var(--icon-delay, 0s)) both, gentleFloat 4s ease-in-out infinite calc(4s + var(--icon-delay, 0s)) !important;
+    transition: all 0.3s ease;
+    animation: fadeInScale 0.4s ease-out calc(1.2s + var(--icon-delay, 0s)) both;
 }
 
 .profile .social_icons a:nth-child(1) { --icon-delay: 0s; }
@@ -235,9 +181,8 @@
 .profile .social_icons a:nth-child(3) { --icon-delay: 0.2s; }
 
 .profile .social_icons a:hover {
-    transform: translateY(-3px) scale(1.1) !important;
-    filter: brightness(1.2) !important;
-    animation-play-state: paused;
+    transform: translateY(-3px) scale(1.1);
+    filter: brightness(1.2);
 }
 
 /* Enhanced Button styling with animations */
@@ -247,17 +192,17 @@
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
-    animation: fadeInUp 0.6s ease-out 1.4s both !important;
+    animation: fadeInUp 0.6s ease-out 1.4s both;
 }
 
 .profile .button {
     padding: 12px 24px;
     border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
     position: relative;
     overflow: hidden;
-    animation: fadeInScale 0.4s ease-out calc(1.6s + var(--btn-delay, 0s)) both, subtlePulse 10s ease-in-out infinite calc(5s + var(--btn-delay, 0s)) !important;
+    animation: fadeInScale 0.4s ease-out calc(1.6s + var(--btn-delay, 0s)) both;
 }
 
 .profile .button:nth-child(1) { --btn-delay: 0s; }
@@ -279,9 +224,8 @@
 }
 
 .profile .button:hover {
-    transform: translateY(-3px) scale(1.02) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-    animation-play-state: paused;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
