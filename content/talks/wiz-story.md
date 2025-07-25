@@ -13,8 +13,6 @@ tags:
   ]
 ---
 
-### Video Presentation
-
 {{< youtube Ia5aTmxD6sw >}}
 
 ## Description

@@ -1,12 +1,10 @@
 ---
 author: ["Enguerrand Allamel"]
-title: "KubeCon CloudNativeCon Noth America 2024: Practical Supply Chain Security: Implementing SLSA Compliance from Build to Runtime"
+title: "KubeCon CloudNativeCon North America 2024: Practical Supply Chain Security: Implementing SLSA Compliance from Build to Runtime"
 date: "2024-11-15"
 tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
 ---
-
-### Video & Materials
 
 {{< youtube 0w_dBmvu5l8 >}}
 

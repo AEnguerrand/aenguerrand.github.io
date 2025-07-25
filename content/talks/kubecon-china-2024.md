@@ -6,8 +6,6 @@ tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
 ---
 
-### Video & Materials
-
 {{< youtube 733HXxEnm0I >}}
 
 ## Description
