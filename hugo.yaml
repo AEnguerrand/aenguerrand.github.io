@@ -101,3 +101,6 @@ params:
     - name: github
       title: Github
       url: "https://github.enguerrand.tech"
+
+  assets:
+    favicon: /favicon.ico
