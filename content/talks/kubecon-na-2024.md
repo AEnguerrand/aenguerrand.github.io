@@ -6,6 +6,10 @@ tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
 ---
 
+### Video & Materials
+
+{{< youtube 0w_dBmvu5l8 >}}
+
 ## Description
 
 Securing the software supply chain can feel overwhelming, especially with dynamic frameworks like SLSA (Supply-chain Levels for Software Artifacts). This beginner-friendly session explores practical strategies to secure your software from build to runtime using cloud-native tools and methodologies.
@@ -70,10 +74,6 @@ Github Repository with lab/examples: [kubecon-cloudnativecon-na-2024-supply-chai
 - **Event**: KubeCon + CloudNativeCon North America 2024
 - **Location**: Salt Lake City, Utah
 - **Date**: November 15, 2024
-
-### Video & Materials
-
-{{< youtube 0w_dBmvu5l8 >}}
 
 ### Slides & Repository
 

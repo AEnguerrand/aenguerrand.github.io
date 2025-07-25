@@ -6,6 +6,10 @@ tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
 ---
 
+### Video & Materials
+
+{{< youtube 733HXxEnm0I >}}
+
 ## Description
 
 Navigating the complexities of supply chain security might seem intimidating, especially with evolving frameworks like SLSA (Supply-chain Levels for Software Artifacts). This beginner-friendly session introduces foundational practices required to secure software from build to runtime using CNCF tools.
@@ -69,10 +73,6 @@ Github Repository with lab/examples: [kubecon-cloudnativecon-china-2024-supply-c
 - **Event**: KubeCon + CloudNativeCon + Open Source Summit China 2024
 - **Location**: Hong Kong
 - **Date**: August 21, 2024
-
-### Video & Materials
-
-{{< youtube 733HXxEnm0I >}}
 
 ### Slides & Repository
 

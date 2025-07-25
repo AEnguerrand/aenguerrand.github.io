@@ -13,6 +13,10 @@ tags:
   ]
 ---
 
+### Video Presentation
+
+{{< youtube Ia5aTmxD6sw >}}
+
 ## Description
 
 As Staff Cloud Security Engineer at Ledger, I share how we protect the infrastructure behind one of the world's leading cryptocurrency security companies. This case study explores our journey from fragmented security visibility to comprehensive cloud protection across our multi-cloud environment.
@@ -75,7 +79,3 @@ Customer story on Wiz website: [Protecting Ledger's infrastructure](https://www.
 ### Customer Story
 
 - [Wiz Customer Story: Protecting Ledger's infrastructure](https://www.wiz.io/customers/ledger)
-
-### Video Presentation
-
-{{< youtube Ia5aTmxD6sw >}}
