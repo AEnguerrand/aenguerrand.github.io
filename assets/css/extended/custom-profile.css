@@ -372,11 +372,11 @@
     transform: translateY(-2px) scale(1.05);
 }
 
-/* Clean Description Styling */
+/* Enhanced Description Styling */
 .profile-description {
-    margin: 40px auto 48px auto;
-    padding: 0 20px;
-    max-width: 650px;
+    margin: 48px auto 56px auto;
+    padding: 0 24px;
+    max-width: 720px;
     animation: fadeInUp 0.6s ease-out 0.8s both;
 }
 
@@ -385,21 +385,38 @@
     padding: 0;
     border: none;
     outline: none;
+    position: relative;
+}
+
+.description-content::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, 
+        rgba(59, 130, 246, 0.8) 0%, 
+        rgba(147, 51, 234, 0.6) 50%, 
+        rgba(236, 72, 153, 0.4) 100%);
+    border-radius: 2px;
+    opacity: 0.7;
 }
 
 .description-content p {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: var(--secondary);
-    margin-bottom: 1.5em;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--content);
+    margin-bottom: 1.6em;
     font-weight: 400;
     text-align: left;
+    position: relative;
     animation: slideInFromLeft 0.6s ease-out calc(1s + var(--delay, 0s)) both;
 }
 
 .description-content p:nth-child(1) { --delay: 0s; }
-.description-content p:nth-child(2) { --delay: 0.15s; }
-.description-content p:nth-child(3) { --delay: 0.3s; }
+.description-content p:nth-child(2) { --delay: 0.12s; }
+.description-content p:nth-child(3) { --delay: 0.24s; }
 
 .description-content p:last-child {
     margin-bottom: 0;
@@ -408,6 +425,38 @@
 .description-content p:first-child {
     font-weight: 500;
     color: var(--primary);
+    font-size: 1.15rem;
+    position: relative;
+}
+
+.description-content p:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    opacity: 0.5;
+}
+
+/* Subtle emphasis for key terms */
+.description-content strong,
+.description-content b {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Links styling within description */
+.description-content a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.description-content a:hover {
+    border-bottom-color: var(--primary);
 }
 
 /* Social icons with staggered animation */
@@ -489,37 +538,23 @@
     }
     
     .profile-description {
-        margin: 20px auto 12px auto;
-        padding: 0 16px;
-        text-align: center;
-    }
-    
-    .skills-section {
-        margin: 2px auto 4px auto;
+        margin: 36px auto 44px auto;
         padding: 0 16px;
     }
     
-    .skills-cloud {
-        gap: 10px;
-        padding: 12px;
-        min-height: 100px;
-        margin: 8px 0;
-    }
-    
-    .skill-tag {
-        font-size: 0.85rem;
-        padding: 7px 14px;
-        border-radius: 18px;
-    }
-    
-    .status-indicator {
-        font-size: 0.85rem;
-        padding: 6px 14px;
+    .description-content::before {
+        left: -16px;
+        width: 2px;
     }
     
     .description-content p {
         font-size: 1.05rem;
         line-height: 1.7;
+        margin-bottom: 1.4em;
+    }
+    
+    .description-content p:first-child {
+        font-size: 1.1rem;
     }
     
     .profile .buttons {
@@ -547,42 +582,28 @@
     }
     
     .profile-description {
-        margin: 12px auto 4px auto;
+        margin: 28px auto 36px auto;
         padding: 0 12px;
     }
     
-    .skills-section {
-        margin: 2px auto 4px auto;
-        padding: 0 12px;
-    }
-    
-    .skills-cloud {
-        gap: 8px;
-        padding: 10px;
-        min-height: 80px;
-        margin: 6px 0;
-    }
-    
-    .skill-tag {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-        border-radius: 16px;
-    }
-    
-    .status-indicator {
-        font-size: 0.8rem;
-        padding: 5px 12px;
-    }
-    
-    .status-dot {
-        width: 6px;
-        height: 6px;
+    .description-content::before {
+        left: -12px;
+        width: 2px;
     }
     
     .description-content p {
         font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.2em;
+        line-height: 1.65;
+        margin-bottom: 1.3em;
+    }
+    
+    .description-content p:first-child {
+        font-size: 1.05rem;
+    }
+    
+    .description-content p:first-child::after {
+        width: 30px;
+        height: 1.5px;
     }
     
     .profile .buttons {
@@ -621,11 +642,27 @@
 
 /* Dark mode improvements */
 @media (prefers-color-scheme: dark) {
+    .description-content::before {
+        background: linear-gradient(180deg, 
+            rgba(147, 51, 234, 0.8) 0%, 
+            rgba(59, 130, 246, 0.6) 50%, 
+            rgba(236, 72, 153, 0.4) 100%);
+    }
+    
     .description-content p {
         color: var(--secondary);
     }
     
     .description-content p:first-child {
+        color: var(--primary);
+    }
+    
+    .description-content a {
+        color: var(--primary);
+    }
+    
+    .description-content strong,
+    .description-content b {
         color: var(--primary);
     }
     
