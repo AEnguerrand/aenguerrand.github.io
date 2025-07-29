@@ -33,7 +33,7 @@ params:
   description: "Enguerrand Allamel's personal website"
   author: Enguerrand Allamel
 
-  defaultTheme: auto
+  defaultTheme: dark
   # disableThemeToggle: true
   ShowShareButtons: true
   ShowReadingTime: true
@@ -59,11 +59,11 @@ params:
     # imageWidth: 120
     # imageHeight: 120
     description: |
-      Welcome to my personal website! I'm a Staff Cloud Security Engineer at Ledger, where I focus on securing cloud infrastructure and implementing robust security practices.
+      Staff Cloud Security Engineer and former SRE with over 6 years of experience securing and scaling AWS and on-premises infrastructure. I specialise in protecting software supply chains and building secure, reliable systems using Kubernetes, GitHub Actions, and Terraform.
       
-      With expertise in cloud security, software development, and DevOps practices, I work on ensuring the highest security standards in the fintech industry. I specialize in software supply chain security, compliance frameworks, and modern cloud-native security solutions.
+      I incorporate security into CI/CD pipelines with SLSA, Sigstore (keyless signing), and policy automation. I have deployed Wiz for cloud posture management and led initiatives that enhanced uptime, shortened deployment times, and strengthened overall security.
       
-      I regularly speak at conferences like KubeCon, AWS Summit, and other industry events, sharing insights about cloud security, DevOps best practices, and modern security architectures. Here you'll find my talks, presentations, and thoughts on these topics.
+      Outside of work, I speak at KubeCon and contribute to open-source projects, sharing practical insights into DevSecOps and cloud security.
     skills:
       - name: "Cloud Security"
         category: "security"

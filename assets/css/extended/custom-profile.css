@@ -231,17 +231,6 @@
     font-weight: 500;
 }
 
-/* Enhanced Profile Description */
-.profile-description {
-    animation: fadeInUp 0.8s ease-out 0.4s both;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--content);
-    max-width: 800px;
-    margin: 20px auto 8px auto;
-    text-align: center;
-}
-
 /* Skills Cloud Section */
 .skills-section {
     margin: 4px auto 4px auto;
@@ -383,63 +372,41 @@
     transform: translateY(-2px) scale(1.05);
 }
 
+/* Clean Description Styling */
+.profile-description {
+    margin: 40px auto 48px auto;
+    padding: 0 20px;
+    max-width: 650px;
+    animation: fadeInUp 0.6s ease-out 0.8s both;
+}
+
 .description-content {
-    background: var(--theme);
-    border: 1px solid var(--tertiary);
-    border-radius: 12px;
-    padding: 28px 32px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    opacity: 0.9;
-    animation: shimmer 8s ease-in-out infinite;
-    background: linear-gradient(90deg, var(--theme) 25%, rgba(var(--tertiary), 0.1) 50%, var(--theme) 75%);
-    background-size: 200% 100%;
-}
-
-.description-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--tertiary);
-    border-radius: 12px 12px 0 0;
-    opacity: 0.5;
-}
-
-.description-content:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border-color: var(--secondary);
-    opacity: 1;
-    animation-play-state: paused;
+    background: transparent;
+    padding: 0;
+    border: none;
+    outline: none;
 }
 
 .description-content p {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--content);
-    margin-bottom: 1.4em;
+    color: var(--secondary);
+    margin-bottom: 1.5em;
     font-weight: 400;
     text-align: left;
     animation: slideInFromLeft 0.6s ease-out calc(1s + var(--delay, 0s)) both;
 }
 
 .description-content p:nth-child(1) { --delay: 0s; }
-.description-content p:nth-child(2) { --delay: 0.1s; }
-.description-content p:nth-child(3) { --delay: 0.2s; }
-.description-content p:nth-child(4) { --delay: 0.3s; }
+.description-content p:nth-child(2) { --delay: 0.15s; }
+.description-content p:nth-child(3) { --delay: 0.3s; }
 
 .description-content p:last-child {
     margin-bottom: 0;
 }
 
-.description-content p:first-letter {
-    font-size: 1.3em;
-    font-weight: 600;
+.description-content p:first-child {
+    font-weight: 500;
     color: var(--primary);
 }
 
@@ -550,11 +517,6 @@
         padding: 6px 14px;
     }
     
-    .description-content {
-        padding: 24px 20px;
-        text-align: left;
-    }
-    
     .description-content p {
         font-size: 1.05rem;
         line-height: 1.7;
@@ -617,16 +579,10 @@
         height: 6px;
     }
     
-    .description-content {
-        padding: 20px 16px;
-        border-radius: 8px;
-    }
-    
     .description-content p {
         font-size: 1rem;
         line-height: 1.6;
         margin-bottom: 1.2em;
-        text-align: left;
     }
     
     .profile .buttons {
@@ -665,19 +621,12 @@
 
 /* Dark mode improvements */
 @media (prefers-color-scheme: dark) {
-    .description-content {
-        background: var(--code-bg);
-        border-color: var(--border);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .description-content:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-    }
-    
     .description-content p {
-        color: var(--content);
-        opacity: 0.95;
+        color: var(--secondary);
+    }
+    
+    .description-content p:first-child {
+        color: var(--primary);
     }
     
     .profile .button:hover {
