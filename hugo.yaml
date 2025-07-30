@@ -29,7 +29,7 @@ menu:
       weight: 10
 
 params:
-  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  env: production #By default, to have more features turn on
   description: "Enguerrand Allamel's personal website"
   author: Enguerrand Allamel
 
