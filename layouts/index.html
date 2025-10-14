@@ -1,0 +1,338 @@
+{{- $site := .Site -}}
+{{- $profile := site.Params.profileMode -}}
+{{- $mainSections := $site.Params.mainSections | default (slice "posts") -}}
+{{- $allPosts := sort (where $site.RegularPages "Type" "in" $mainSections) "Date" "desc" -}}
+{{- $recentPosts := first 4 $allPosts -}}
+{{- $postCount := len $allPosts -}}
+{{- $firstPost := dict -}}
+{{- if gt $postCount 0 -}}
+    {{- $firstPost = index (sort $allPosts "Date" "asc") 0 -}}
+{{- end -}}
+{{- $latestUpdate := dict -}}
+{{- if gt $postCount 0 -}}
+    {{- $latestUpdate = index $allPosts 0 -}}
+{{- end -}}
+{{- $talkPages := sort (where $site.RegularPages "Section" "talks") "Date" "desc" -}}
+{{- $recentTalks := first 3 $talkPages -}}
+{{- $talkCount := len $talkPages -}}
+{{- $tags := slice -}}
+{{- range $name, $pages := $site.Taxonomies.tags -}}
+    {{- $tags = $tags | append (dict "name" $name "count" (len $pages) "page" (index $pages 0)) -}}
+{{- end -}}
+{{- $tags = sort $tags "count" "desc" -}}
+{{- $topTags := first 12 $tags -}}
+{{- $styles := resources.Get "css/extended/custom-home.css" | resources.Minify | resources.Fingerprint -}}
+{{- $favicon := site.Params.assets.favicon | default "favicon.ico" -}}
+{{- $favicon16 := site.Params.assets.favicon16x16 | default "favicon-16x16.png" -}}
+{{- $favicon32 := site.Params.assets.favicon32x32 | default "favicon-32x32.png" -}}
+{{- $appleTouch := site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" -}}
+{{- $socials := site.Params.socialIcons | default (slice) -}}
+{{- $primarySocial := cond (gt (len $socials) 0) (index $socials 0) nil -}}
+{{- $secondarySocial := cond (gt (len $socials) 1) (index $socials 1) nil -}}
+<!DOCTYPE html>
+<html lang="{{ $site.Language.Lang | default "en" }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if $profile.title }}{{ $profile.title }} · {{ end }}{{ $site.Title }}</title>
+    {{- with $site.Params.description }}
+    <meta name="description" content="{{ . }}">
+    {{- end }}
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{- with $favicon }}
+    <link rel="icon" href="{{ . | absURL }}" type="image/x-icon">
+    {{- end }}
+    {{- with $favicon16 }}
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ . | absURL }}">
+    {{- end }}
+    {{- with $favicon32 }}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ . | absURL }}">
+    {{- end }}
+    {{- with $appleTouch }}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ . | absURL }}">
+    {{- end }}
+    {{ hugo.Generator }}
+    {{- with $styles }}
+    <link rel="preload" href="{{ .RelPermalink }}" as="style" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{- end }}
+</head>
+
+<body class="home-landing">
+    <div class="home-shell">
+        <aside class="home-sidebar">
+            <div class="brand-block">
+                <span class="eyebrow">Cloud Security · DevSecOps</span>
+                <a class="brand-title" href="{{ "/" | relLangURL }}">{{ $profile.title | default $site.Title }}</a>
+                {{- with $profile.subtitle }}
+                <p class="brand-subtitle">{{ . }}</p>
+                {{- else }}
+                    {{- with $site.Params.description }}
+                    <p class="brand-subtitle">{{ . }}</p>
+                    {{- end }}
+                {{- end }}
+            </div>
+
+            <nav class="sidebar-nav" aria-label="On-page">
+                <h3>Sections</h3>
+                <ul>
+                    <li><a href="#overview"><span>Overview</span></a></li>
+                    <li><a href="#writing"><span>Latest writing</span></a></li>
+                    <li><a href="#talks"><span>Talks &amp; decks</span></a></li>
+                    <li><a href="#focus"><span>Focus areas</span></a></li>
+                    <li><a href="#about"><span>About</span></a></li>
+                    <li><a href="#contact"><span>Contact</span></a></li>
+                </ul>
+            </nav>
+
+            {{- if $site.Menus.main }}
+            <div class="sidebar-nav" aria-label="Site navigation">
+                <h3>Navigate</h3>
+                <ul>
+                    {{- range $site.Menus.main }}
+                    <li>
+                        <a href="{{ .URL | relLangURL }}" title="{{ .Title | default .Name }}">
+                            <span>{{ .Name }}</span>
+                        </a>
+                    </li>
+                    {{- end }}
+                </ul>
+            </div>
+            {{- end }}
+
+            <div class="sidebar-social">
+                <h3>Elsewhere</h3>
+                {{- partial "social_icons.html" (dict "align" "left" "Params" .Params "Site" $site) -}}
+            </div>
+
+            <div class="sidebar-footer">
+                <span>© {{ now.Format "2006" }} {{ $site.Title }}</span>
+                <br>
+                <a href="{{ "/index.xml" | relLangURL }}">RSS feed</a>
+            </div>
+        </aside>
+
+        <main class="home-main">
+            <section id="overview" class="hero-section">
+                <div class="hero-copy">
+                    {{- with $profile.subtitle }}
+                    <span class="hero-eyebrow">{{ . }}</span>
+                    {{- end }}
+                    <h1 class="hero-title">{{ $profile.title | default $site.Title }}</h1>
+                    {{- if $profile.description }}
+                    <p class="hero-subtitle">{{ $profile.description | markdownify | plainify | truncate 220 }}</p>
+                    {{- else if $site.Params.description }}
+                    <p class="hero-subtitle">{{ $site.Params.description }}</p>
+                    {{- end }}
+                    {{- with $profile.buttons }}
+                    <div class="hero-actions">
+                        {{- range $index, $btn := . }}
+                        <a href="{{ trim $btn.url " " }}" class="{{ if eq $index 0 }}primary{{ else }}secondary{{ end }}" rel="noopener"{{ if strings.HasPrefix (trim $btn.url " ") "http" }} target="_blank"{{ end }}>
+                            <span>{{ $btn.name }}</span>
+                        </a>
+                        {{- end }}
+                    </div>
+                    {{- end }}
+                </div>
+                {{- with $profile.imageUrl }}
+                    {{- $imageResource := "" -}}
+                    {{- if not (urls.Parse .).IsAbs -}}
+                        {{- $imageResource = resources.Get . -}}
+                    {{- end -}}
+                    {{- $imageHeight := $profile.imageHeight | default 220 -}}
+                    {{- $imageWidth := $profile.imageWidth | default 220 -}}
+                    {{- $imageAlt := $profile.imageTitle | default "profile image" -}}
+                    {{- $imageURL := "" -}}
+                    {{- if $imageResource -}}
+                        {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
+                        {{- if hugo.IsExtended -}}
+                            {{- $processableFormats = $processableFormats | append "webp" -}}
+                        {{- end -}}
+                        {{- if (in $processableFormats $imageResource.MediaType.SubType) -}}
+                            {{- if and $profile.imageWidth $profile.imageHeight -}}
+                                {{- $imageResource = $imageResource.Resize (printf "%dx%d" $profile.imageWidth $profile.imageHeight) -}}
+                            {{- else if $profile.imageWidth -}}
+                                {{- $imageResource = $imageResource.Resize (printf "%dx" $profile.imageWidth) -}}
+                            {{- else if $profile.imageHeight -}}
+                                {{- $imageResource = $imageResource.Resize (printf "x%d" $profile.imageHeight) -}}
+                            {{- else -}}
+                                {{- $imageResource = $imageResource.Resize "220x220" -}}
+                            {{- end -}}
+                        {{- end -}}
+                        {{- $imageURL = $imageResource.Permalink -}}
+                    {{- else -}}
+                        {{- $imageURL = . | absURL -}}
+                    {{- end -}}
+                    {{- if $imageURL }}
+                    <div class="hero-visual">
+                        <div class="profile-card">
+                            <img src="{{ $imageURL }}" alt="{{ $imageAlt }}" height="{{ $imageHeight }}" width="{{ $imageWidth }}">
+                            {{- with $profile.status }}
+                            <span class="status-badge"><span class="dot"></span>{{ . }}</span>
+                            {{- end }}
+                        </div>
+                    </div>
+                    {{- end }}
+                {{- end }}
+            </section>
+
+            <section class="stats-ribbon" aria-label="At-a-glance metrics">
+                <article class="stat-card">
+                    <span class="stat-label">Published posts</span>
+                    <span class="stat-value">{{ $postCount }}</span>
+                    {{- if $firstPost }}
+                    <span class="stat-meta">Writing since {{ $firstPost.Date.Format "2006" }}</span>
+                    {{- else }}
+                    <span class="stat-meta">Fresh stories in progress</span>
+                    {{- end }}
+                </article>
+                <article class="stat-card">
+                    <span class="stat-label">Talks &amp; decks</span>
+                    <span class="stat-value">{{ $talkCount }}</span>
+                    {{- if gt (len $recentTalks) 0 }}
+                    {{- $talk := index $recentTalks 0 -}}
+                    <span class="stat-meta">Latest: {{ $talk.Title }}</span>
+                    {{- else }}
+                    <span class="stat-meta">Upcoming sessions coming soon</span>
+                    {{- end }}
+                </article>
+                <article class="stat-card">
+                    <span class="stat-label">Latest update</span>
+                    {{- if $latestUpdate }}
+                    <span class="stat-value">{{ $latestUpdate.Date.Format "Jan 2" }}</span>
+                    <span class="stat-meta">“{{ $latestUpdate.Title }}”</span>
+                    {{- else }}
+                    <span class="stat-value">—</span>
+                    <span class="stat-meta">Stay tuned for updates</span>
+                    {{- end }}
+                </article>
+            </section>
+
+            {{- if gt (len $recentPosts) 0 }}
+            <section id="writing">
+                <header class="section-header">
+                    <div>
+                        <h2>Latest writing</h2>
+                        <p>Deep dives into software supply chain, cloud security, and DevOps.</p>
+                    </div>
+                    {{- with ($site.GetPage (printf "/%s" (index $mainSections 0))) }}
+                    <a href="{{ .RelPermalink }}">Browse all posts</a>
+                    {{- end }}
+                </header>
+                <div class="posts-grid">
+                    {{- range $recentPosts }}
+                    {{- $postTags := .Params.tags | default (slice) -}}
+                    <a class="post-card" href="{{ .RelPermalink }}">
+                        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                        <h3>{{ .Title }}</h3>
+                        <p>{{ .Summary | default .Params.description | default (.Plain | truncate 200) | plainify | truncate 160 }}</p>
+                        <div class="reading-hint">{{ .ReadingTime }} minute read</div>
+                        {{- if gt (len $postTags) 0 }}
+                        <span class="tag">#{{ index $postTags 0 }}</span>
+                        {{- end }}
+                    </a>
+                    {{- end }}
+                </div>
+            </section>
+            {{- end }}
+
+            {{- if gt (len $recentTalks) 0 }}
+            <section id="talks">
+                <header class="section-header">
+                    <div>
+                        <h2>Talks &amp; conference decks</h2>
+                        <p>Keynotes and sessions across KubeCon, AWS Summit, and more.</p>
+                    </div>
+                    {{- with ($site.GetPage "/talks") }}
+                    <a href="{{ .RelPermalink }}">View talks archive</a>
+                    {{- end }}
+                </header>
+                <div class="talks-grid">
+                    {{- range $recentTalks }}
+                    {{- $talkTags := .Params.tags | default (slice) -}}
+                    <a class="talk-card" href="{{ .RelPermalink }}">
+                        <div class="meta">{{ .Date.Format "Jan 2006" }}</div>
+                        <h3>{{ .Title }}</h3>
+                        {{- with .Params.location }}
+                        <p>{{ . }}</p>
+                        {{- else }}
+                            {{- with .Summary }}
+                            <p>{{ . | plainify | truncate 160 }}</p>
+                            {{- else }}
+                            <p>Slides, demos, and practical lessons from the field.</p>
+                            {{- end }}
+                        {{- end }}
+                        {{- if gt (len $talkTags) 0 }}
+                        <span class="tag">#{{ index $talkTags 0 }}</span>
+                        {{- end }}
+                    </a>
+                    {{- end }}
+                </div>
+            </section>
+            {{- end }}
+
+            {{- if gt (len $topTags) 0 }}
+            <section id="focus">
+                <header class="section-header">
+                    <div>
+                        <h2>Focus areas</h2>
+                        <p>Topics that show up frequently across writing and talks.</p>
+                    </div>
+                </header>
+                <div class="topics-cloud">
+                    {{- range $topTags }}
+                    {{- $tagPage := $site.GetPage (printf "/tags/%s" (urlize .name)) -}}
+                    <a class="topic-pill" href="{{ cond $tagPage $tagPage.RelPermalink (printf "/tags/%s/" (urlize .name)) }}">
+                        {{ .name | title }}
+                        <span>×{{ .count }}</span>
+                    </a>
+                    {{- end }}
+                </div>
+            </section>
+            {{- end }}
+
+            {{- if $profile.description }}
+            <section id="about">
+                <header class="section-header">
+                    <div>
+                        <h2>About</h2>
+                        <p>A snapshot of current work, interests, and philosophy.</p>
+                    </div>
+                </header>
+                <div class="about-panel">
+                    {{ $profile.description | markdownify }}
+                </div>
+            </section>
+            {{- end }}
+
+            <section id="contact">
+                <div class="contact-ribbon">
+                    <h2>Let’s collaborate</h2>
+                    <p>I’m always excited to discuss cloud security programs, DevSecOps transformations, and speaking opportunities.</p>
+                    <div class="cta-group">
+                        {{- with $primarySocial }}
+                        <a class="primary" href="{{ trim .url " " }}" target="_blank" rel="noopener">
+                            Connect on {{ .title | default .name | title }}
+                        </a>
+                        {{- end }}
+                        {{- with $secondarySocial }}
+                        <a class="secondary" href="{{ trim .url " " }}" target="_blank" rel="noopener">
+                            Explore {{ .title | default .name | title }}
+                        </a>
+                        {{- else }}
+                        <a class="secondary" href="/talks/">View speaking portfolio</a>
+                        {{- end }}
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer-note">
+                <span>Handcrafted with Hugo · {{ hugo.Version }}</span>
+                <span>Design inspired by modern developer dashboards.</span>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

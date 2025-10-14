@@ -1,88 +1,213 @@
-<div class="profile">
-    {{- with site.Params.profileMode }}
-    <div class="profile_inner">
-        {{- if .imageUrl -}}
-        {{- $img := "" }}
-        {{- if not (urls.Parse .imageUrl).IsAbs }}
+{{- $page := . }}
+{{- with site.Params.profileMode }}
+{{- $site := $page.Site }}
+{{- $mainSections := $site.Params.mainSections | default (slice "posts") }}
+{{- $mainPages := where $site.RegularPages "Type" "in" $mainSections }}
+{{- $recentPosts := first 4 $mainPages }}
+{{- $postCount := len $mainPages }}
+{{- $talkPages := where $site.RegularPages "Section" "talks" }}
+{{- $recentTalks := first 3 $talkPages }}
+{{- $talkCount := len $talkPages }}
+{{- $tagCount := len $site.Taxonomies.tags }}
+{{- $firstPost := "" }}
+{{- if gt $postCount 0 }}
+    {{- $firstPost = index (sort $mainPages "Date" "asc") 0 }}
+{{- end }}
+{{- $latestTalk := "" }}
+{{- if gt (len $recentTalks) 0 }}
+    {{- $latestTalk = index $recentTalks 0 }}
+{{- end }}
+{{- $primarySectionPage := "" }}
+{{- if gt (len $mainSections) 0 }}
+    {{- $primarySectionPage = $site.GetPage (printf "/%s" (index $mainSections 0)) }}
+{{- end }}
+{{- $talksSection := $site.GetPage "/talks" }}
+<div class="dashboard-home">
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-card profile-card">
+            {{- if .imageUrl }}
+            {{- $img := "" }}
+            {{- if not (urls.Parse .imageUrl).IsAbs }}
             {{- $img = resources.Get .imageUrl }}
-        {{- end }}
-        {{- if $img }}
+            {{- end }}
+            {{- if $img }}
             {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
             {{- if hugo.IsExtended -}}
-                {{- $processableFormats = $processableFormats | append "webp" -}}
+            {{- $processableFormats = $processableFormats | append "webp" -}}
             {{- end -}}
             {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
-            {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
-                {{- if (not (and (not .imageHeight) (not .imageWidth))) }}
-                    {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
-                {{- else if .imageHeight }}
-                    {{- $img = $img.Resize (printf "x%d" .imageHeight) }}
-                {{ else if .imageWidth }}
-                    {{- $img = $img.Resize (printf "%dx" .imageWidth) }}
-                {{ else }}
-                    {{- $img = $img.Resize "150x150" }}
-                {{- end }}
+            {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true) }}
+            {{- if and .imageHeight .imageWidth }}
+            {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
+            {{- else if .imageHeight }}
+            {{- $img = $img.Resize (printf "x%d" .imageHeight) }}
+            {{- else if .imageWidth }}
+            {{- $img = $img.Resize (printf "%dx" .imageWidth) }}
+            {{- else }}
+            {{- $img = $img.Resize "180x180" }}
+            {{- end }}
             {{- end }}
             <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
-                height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
-        {{- else }}
-        <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
-            height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
-        {{- end }}
-        {{- end }}
-        <h1 class="profile-title">{{ .title | default site.Title | markdownify }}</h1>
-        <span class="profile-subtitle">{{ .subtitle | markdownify }}</span>
-        
-        {{- /* Status indicator temporarily hidden
-        {{- if .status }}
-        <div class="profile-status">
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span class="status-text">{{ .status }}</span>
+                height="{{ .imageHeight | default 180 }}" width="{{ .imageWidth | default 180 }}" />
+            {{- else }}
+            <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
+                height="{{ .imageHeight | default 180 }}" width="{{ .imageWidth | default 180 }}" />
+            {{- end }}
+            {{- end }}
+            <h1 class="sidebar-title">{{ .title | default $site.Title | markdownify }}</h1>
+            {{- with .subtitle }}
+            <p class="sidebar-subtitle">{{ . | markdownify }}</p>
+            {{- end }}
+            {{- with .status }}
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <span>{{ . }}</span>
             </div>
+            {{- end }}
         </div>
-        {{- end }}
-        */ -}}
-        
-        {{- partial "social_icons.html" -}}
 
-        {{- with .buttons }}
-        <div class="buttons">
-            {{- range . }}
-            <a class="button" href="{{ trim .url " " }}" rel="noopener" title="{{ .name }}">
-                <span class="button-inner">
-                    {{ .name }}
-                    {{- if (findRE "://" .url) }}&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="14" width="14">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+        {{- if $site.Menus.main }}
+        <nav class="sidebar-card sidebar-nav" aria-label="Primary navigation">
+            <span class="nav-heading">Navigate</span>
+            <ul>
+                {{- range $site.Menus.main }}
+                {{- $isActive := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
+                <li>
+                    <a href="{{ .URL | relLangURL }}" {{ if .Title }}title="{{ .Title }}"{{ end }} class="{{ if $isActive }}is-active{{ end }}">
+                        {{- if .Pre }}{{ .Pre | safeHTML }}{{ end -}}
+                        <span>{{ .Name }}</span>
+                        {{- if .Post }}{{ .Post | safeHTML }}{{ end -}}
+                    </a>
+                </li>
+                {{- end }}
+            </ul>
+        </nav>
+        {{- end }}
+
+        <div class="sidebar-card sidebar-social">
+            <span class="nav-heading">Elsewhere</span>
+            {{- partial "social_icons.html" -}}
+        </div>
+    </aside>
+
+    <section class="dashboard-content">
+        <header class="dashboard-hero">
+            <div class="hero-text">
+                <h2>{{ with .headline }}{{ . | markdownify }}{{ else }}Latest from {{ $site.Title }}{{ end }}</h2>
+                {{- with .description }}
+                <div class="hero-description">
+                    {{ . | markdownify }}
+                </div>
+                {{- end }}
+            </div>
+            {{- with .buttons }}
+            <div class="hero-actions">
+                {{- range . }}
+                <a class="hero-button" href="{{ trim .url " " }}" rel="noopener" title="{{ .name }}">
+                    <span>{{ .name }}</span>
+                    {{- if (findRE "://" .url) }}
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                         <path d="M15 3h6v6"></path>
                         <path d="M10 14L21 3"></path>
                     </svg>
                     {{- end }}
-                </span>
-            </a>
+                </a>
+                {{- end }}
+            </div>
             {{- end }}
+        </header>
+
+        <div class="dashboard-card stat-card-group">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Published posts</span>
+                    <span class="stat-value">{{ $postCount }}</span>
+                    {{- if $firstPost }}
+                    <span class="stat-meta">Writing since {{ $firstPost.Date.Format "2006" }}</span>
+                    {{- else }}
+                    <span class="stat-meta">Fresh stories coming soon</span>
+                    {{- end }}
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Talks &amp; decks</span>
+                    <span class="stat-value">{{ $talkCount }}</span>
+                    <span class="stat-meta">
+                        {{- if $latestTalk -}}
+                        Latest: {{ $latestTalk.Title }}
+                        {{- else -}}
+                        Ready for the next stage
+                        {{- end -}}
+                    </span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Topics explored</span>
+                    <span class="stat-value">{{ $tagCount }}</span>
+                    <span class="stat-meta">Across the site taxonomy</span>
+                </div>
+            </div>
+        </div>
+
+        {{- if gt (len $recentPosts) 0 }}
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>Latest writing</h3>
+                {{- with $primarySectionPage }}
+                <a class="card-link" href="{{ .RelPermalink }}">View all</a>
+                {{- end }}
+            </div>
+            <div class="updates-grid">
+                {{- range $recentPosts }}
+                <a class="update-card" href="{{ .Permalink }}">
+                    <div class="update-meta">
+                        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                        <span class="update-reading">{{ .ReadingTime }} min read</span>
+                    </div>
+                    <h4>{{ .Title }}</h4>
+                    <p>{{ .Summary | plainify | truncate 140 }}</p>
+                    {{- with index .Params.tags 0 }}
+                    <span class="update-tag">#{{ . }}</span>
+                    {{- end }}
+                </a>
+                {{- end }}
+            </div>
         </div>
         {{- end }}
 
-        {{- if .skills }}
-        <div class="skills-section">
+        {{- if gt (len $recentTalks) 0 }}
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>Recent talks</h3>
+                {{- with $talksSection }}
+                <a class="card-link" href="{{ .RelPermalink }}">Browse archive</a>
+                {{- end }}
+            </div>
+            <ul class="talks-list">
+                {{- range $recentTalks }}
+                <li>
+                    <a href="{{ .Permalink }}">
+                        <span class="talk-title">{{ .Title }}</span>
+                        <span class="talk-date">{{ .Date.Format "Jan 2006" }}</span>
+                    </a>
+                </li>
+                {{- end }}
+            </ul>
+        </div>
+        {{- end }}
+
+        {{- with .skills }}
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>Toolbox</h3>
+                <span class="card-subtitle">Always learning, always shipping</span>
+            </div>
             <div class="skills-cloud">
-                {{- range .skills }}
+                {{- range . }}
                 <span class="skill-tag" data-category="{{ .category }}">{{ .name }}</span>
                 {{- end }}
             </div>
         </div>
         {{- end }}
-        
-        {{- if .description }}
-        <div class="profile-description">
-            <div class="description-content">
-                {{ .description | markdownify }}
-            </div>
-        </div>
-        {{- end }}
-    </div>
-    {{- end}}
+    </section>
 </div>
+{{- end }}
