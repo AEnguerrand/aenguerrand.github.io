@@ -59,11 +59,11 @@ params:
     # imageWidth: 120
     # imageHeight: 120
     description: |
-      Staff Cloud Security Engineer and former SRE with over 6 years of experience securing and scaling AWS and on-premises infrastructure. I specialise in protecting software supply chains and building secure, reliable systems using Kubernetes, GitHub Actions, and Terraform.
+      Working hands-on with Kubernetes, AWS, Python, Go, and CI/CD in production. I focus on cloud and platform security across multiple teams: securing build and deployment, ensuring software supply chain integrity, and securing Kubernetes platforms. Most of my work sits at the intersection of security, platform engineering, and software engineering.
       
-      I incorporate security into CI/CD pipelines with SLSA, Sigstore (keyless signing), and policy automation. I have deployed Wiz for cloud posture management and led initiatives that enhanced uptime, shortened deployment times, and strengthened overall security.
+      I lead projects in software supply chain security, cloud security, and threat detection for cloud native platforms. I also work with on-prem environments, Kubernetes, and GitOps platforms used by several teams.
       
-      Outside of work, I speak at KubeCon and contribute to open-source projects, sharing practical insights into DevSecOps and cloud security.
+      I have spoken at conferences such as KubeCon and AWS Summit, as well as meetups, and have contributed to open source, sharing lessons learned from protecting and operating production platforms.
     skills:
       - name: "Cloud Security"
         category: "security"
