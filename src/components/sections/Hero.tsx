@@ -60,7 +60,7 @@ export function Hero({
             <div className="flex flex-wrap items-center gap-4">
               <div className="group h-14 w-14 overflow-hidden rounded-full ring-2 ring-primary/20">
                 <img
-                  src="/avatar.jpeg"
+                  src="/avatar.webp"
                   alt="Enguerrand Allamel"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="eager"
