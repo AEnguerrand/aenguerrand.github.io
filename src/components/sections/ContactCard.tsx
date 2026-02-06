@@ -13,20 +13,20 @@ export function ContactCard() {
           <Badge className="w-fit border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20">
             Contact
           </Badge>
-          <CardTitle className="text-3xl sm:text-4xl">Need help on security and platform strategy?</CardTitle>
+          <CardTitle className="text-3xl sm:text-4xl">Let&apos;s connect</CardTitle>
           <CardDescription>
-            Share your context and goals, and I can help shape a practical plan across security,
-            reliability, and engineering enablement.
+            I&apos;m always happy to chat with people working on cloud security, SRE, platform
+            engineering, and open source.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-5 pb-8 lg:grid-cols-[1.25fr_1fr]">
           <div className="rounded-xl border border-border/70 bg-secondary/45 p-5">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               <MessageSquareMore className="h-4 w-4 text-primary" />
-              Best for
+              Happy to chat about
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Architecture reviews, platform hardening roadmaps, incident readiness, and cloud risk reduction programs.
+              Conference talks, Kubernetes security, runtime protection, supply-chain security, and building reliable platform foundations.
             </p>
           </div>
 

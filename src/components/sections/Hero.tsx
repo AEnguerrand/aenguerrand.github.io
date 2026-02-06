@@ -34,13 +34,13 @@ export function Hero() {
             </div>
 
             <CardTitle className="max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
-              Secure-by-default systems with{" "}
-              <span className="text-primary">production-grade reliability</span>
+              Hi, I&apos;m Enguerrand. I build{" "}
+              <span className="text-primary">secure and reliable cloud platforms</span>.
             </CardTitle>
             <CardDescription className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              I build cloud security programs that are practical for engineering teams:
-              supply-chain trust, runtime defense, and platform guardrails that keep
-              delivery speed high.
+              This site is my notebook for talks, ideas, and field notes from security,
+              SRE, and platform engineering. I write about what works in production and
+              what still needs better defaults.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap items-center gap-3 px-7 pb-8 sm:px-9">
@@ -50,42 +50,42 @@ export function Hero() {
               </a>
             </Button>
             <Button asChild variant="outline">
-              <a href="#contact">Start a conversation</a>
+              <a href="#contact">Say hello</a>
             </Button>
           </CardContent>
         </Card>
 
         <Card className="border-border/70 bg-card/90 shadow-[0_14px_38px_hsl(var(--foreground)/0.06)]">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">What I optimize</CardTitle>
-            <CardDescription>Security outcomes that hold up under real traffic and incidents.</CardDescription>
+            <CardTitle className="text-2xl">Currently exploring</CardTitle>
+            <CardDescription>Topics I&apos;m spending time on lately.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
                 <ShieldCheck className="h-4 w-4 text-primary" />
-                Secure delivery pipelines
+                Supply-chain trust
               </div>
               <p className="text-sm text-muted-foreground">
-                Identity-aware CI/CD controls, provenance, and signing integrated into developer workflows.
+                Provenance, signing, and identity-based controls that are realistic for daily developer workflows.
               </p>
             </div>
             <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
                 <Radar className="h-4 w-4 text-primary" />
-                Runtime risk visibility
+                Runtime security signals
               </div>
               <p className="text-sm text-muted-foreground">
-                Detection and prioritization based on real exploit paths and business impact.
+                Better ways to prioritize risks using context instead of raw vulnerability counts.
               </p>
             </div>
             <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
               <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
                 <Workflow className="h-4 w-4 text-primary" />
-                Reliable platform guardrails
+                Platform guardrails
               </div>
               <p className="text-sm text-muted-foreground">
-                Defaults and paved roads that help teams move quickly without bypassing security.
+                Designing defaults that keep teams fast without creating silent reliability or security debt.
               </p>
             </div>
           </CardContent>
