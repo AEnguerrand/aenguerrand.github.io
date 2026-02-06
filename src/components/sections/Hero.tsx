@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ArrowUpRight, Radar, ShieldCheck, Workflow } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,10 +58,15 @@ export function Hero({
         <Card className="overflow-hidden border-border/70 shadow-[0_18px_50px_hsl(var(--foreground)/0.07)]">
           <CardHeader className="space-y-6 p-7 sm:p-9">
             <div className="flex flex-wrap items-center gap-4">
-              <Avatar className="h-14 w-14 ring-2 ring-primary/20">
-                <AvatarImage src="/avatar.png" alt="Enguerrand Allamel" />
-                <AvatarFallback>EA</AvatarFallback>
-              </Avatar>
+              <div className="h-14 w-14 overflow-hidden rounded-full ring-2 ring-primary/20">
+                <img
+                  src="/avatar.jpeg"
+                  alt="Enguerrand Allamel"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
               <div className="flex flex-col gap-2">
                 <Badge className="w-fit border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20">
                   Staff Cloud Security Engineer
