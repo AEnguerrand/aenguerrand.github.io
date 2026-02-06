@@ -6,7 +6,7 @@ tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
 ---
 
-{{< youtube 0w_dBmvu5l8 >}}
+<iframe class="aspect-video w-full" src="https://www.youtube.com/embed/0w_dBmvu5l8" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Description
 

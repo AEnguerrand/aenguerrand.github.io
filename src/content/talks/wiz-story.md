@@ -13,7 +13,7 @@ tags:
   ]
 ---
 
-{{< youtube Ia5aTmxD6sw >}}
+<iframe class="aspect-video w-full" src="https://www.youtube.com/embed/Ia5aTmxD6sw" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Description
 

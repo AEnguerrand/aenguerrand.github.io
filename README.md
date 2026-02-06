@@ -1,28 +1,28 @@
 # aenguerrand.github.io / enguerrand.tech
 
-Personal website built with Hugo and the PaperMod theme, with customizations.
+Personal website rebuilt with Astro + Tailwind (shadcn-style tokens).
 
 ## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
 # Start local development server
-hugo server -D
+npm run dev
 
 # Build for production
-hugo --minify
+npm run build
 ```
 
 ## Structure
 
-- **Content**: Blog posts and pages in `content/`
-- **Themes**: Using [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme
-- **Customization**: Extended CSS in [`assets/css/extended/`](assets/css/extended/)
-- **Static files**: Favicons and assets in `static/`
+- **Content**: Markdown in `src/content/`
+- **Pages**: Astro pages in `src/pages/`
+- **Layout & UI**: `src/layouts/` and `src/components/`
+- **Styles**: `src/styles/global.css`
+- **Static files**: `public/`
 
 ## Deployment
 
-Automated deployment via GitHub Actions to GitHub Pages.
-
----
-
-Built with ❤️ using [Hugo](https://gohugo.io) and [PaperMod](https://github.com/adityatelange/hugo-PaperMod)
+Build output is in `dist/` by default. Configure your GitHub Pages workflow to run `npm run build` and publish the `dist/` directory.

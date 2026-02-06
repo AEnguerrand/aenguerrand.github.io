@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { TalksTable } from "@/components/sections/TalksTable";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getCollection } from "astro:content";
+
+const talks = (await getCollection("talks"))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Talks" description="Conference talks and workshops on cloud security and reliability.">
+  <section class="pt-8 pb-8 sm:pt-14">
+    <Card className="border-border/70 bg-card/85 shadow-[0_18px_46px_hsl(var(--foreground)/0.06)]">
+      <CardHeader className="space-y-4">
+        <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
+          Speaking
+        </Badge>
+        <CardTitle className="text-4xl sm:text-5xl">Talks & Workshops</CardTitle>
+        <CardDescription className="max-w-2xl text-base sm:text-lg">
+          Sessions on supply-chain security, cloud-native resilience, and secure platform engineering.
+        </CardDescription>
+      </CardHeader>
+    </Card>
+  </section>
+
+  <section>
+    <TalksTable title="All talks" talks={talks} showViewAll={false} />
+  </section>
+</BaseLayout>

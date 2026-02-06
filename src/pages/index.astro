@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Hero } from "@/components/sections/Hero";
+import { FocusAccordion } from "@/components/sections/FocusAccordion";
+import { ContactCard } from "@/components/sections/ContactCard";
+import { TalksTable } from "@/components/sections/TalksTable";
+import { getCollection } from "astro:content";
+
+const talks = (await getCollection("talks"))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home" description="Staff Cloud Security Engineer with a background in SRE and platform engineering.">
+  <Hero />
+
+  <div class="my-12 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+
+  <FocusAccordion client:load />
+
+  <section class="mt-14">
+    <TalksTable title="Recent talks" talks={talks} />
+  </section>
+
+  <ContactCard />
+</BaseLayout>

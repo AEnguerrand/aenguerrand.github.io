@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,75&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 39 44% 96%;
+    --foreground: 210 38% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 38% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 38% 16%;
+
+    --primary: 190 85% 30%;
+    --primary-foreground: 40 55% 97%;
+
+    --secondary: 34 35% 90%;
+    --secondary-foreground: 209 36% 22%;
+
+    --muted: 35 28% 92%;
+    --muted-foreground: 212 22% 40%;
+
+    --accent: 36 88% 62%;
+    --accent-foreground: 212 38% 16%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 35 22% 82%;
+    --input: 35 22% 82%;
+    --ring: 190 85% 30%;
+
+    --radius: 1rem;
+    --font-sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+    --font-display: "Fraunces", "Iowan Old Style", "Times New Roman", serif;
+  }
+
+  .dark {
+    --background: 210 36% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 210 36% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 210 36% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 184 70% 66%;
+    --primary-foreground: 210 36% 10%;
+
+    --secondary: 209 29% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 209 29% 18%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 35 88% 62%;
+    --accent-foreground: 212 38% 16%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 25% 26%;
+    --input: 210 25% 26%;
+    --ring: 184 70% 66%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 8% 0%, hsl(var(--primary) / 0.16), transparent 30%),
+      radial-gradient(circle at 88% 14%, hsl(var(--accent) / 0.18), transparent 28%),
+      linear-gradient(to bottom, hsl(35 32% 98%), hsl(var(--background)));
+    min-height: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    background-color: hsl(var(--accent) / 0.3);
+  }
+
+  .prose {
+    @apply text-foreground;
+  }
+
+  .prose :where(h2, h3, h4) {
+    font-family: var(--font-display);
+  }
+
+  .prose a {
+    @apply text-primary no-underline;
+  }
+
+  .prose a:hover {
+    @apply underline;
+  }
+}
