@@ -2,6 +2,11 @@
 author: ["Enguerrand Allamel"]
 title: "Wiz.io x Ledger: Protecting Ledger's Infrastructure: Cloud Security at Scale for Cryptocurrency Assets"
 date: "2025-02-20"
+event: "Wiz Customer Story Session"
+location: "Online"
+language: ["English"]
+sessionType: "Customer story"
+summary: "How Ledger scaled multi-cloud security operations with Wiz to improve visibility, prioritization, compliance, and developer workflows."
 tags:
   [
     "wiz",
@@ -11,9 +16,12 @@ tags:
     "security",
     "compliance",
   ]
+resources:
+  - label: "Talk Video (YouTube)"
+    url: "https://www.youtube.com/watch?v=Ia5aTmxD6sw"
+  - label: "Wiz Customer Story: Protecting Ledger's infrastructure"
+    url: "https://www.wiz.io/customers/ledger"
 ---
-
-<iframe class="aspect-video w-full" src="https://www.youtube.com/embed/Ia5aTmxD6sw" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Description
 
@@ -28,8 +36,6 @@ In this talk, I discuss how Ledger leverages Wiz's Cloud Native Application Prot
 - **Runtime security**: Deploying Wiz Sensor across virtual machines for real-time threat detection
 
 Key outcomes include supporting 200+ developers in a centralized security solution, automated compliance through Kubernetes admission control, and demonstrating security excellence that builds customer trust in our cryptocurrency security products.
-
-Customer story on Wiz website: [Protecting Ledger's infrastructure](https://www.wiz.io/customers/ledger)
 
 ---
 
@@ -69,11 +75,3 @@ Customer story on Wiz website: [Protecting Ledger's infrastructure](https://www.
 ✅ **Compliance Automation**: Built-in security policies ensuring regulatory adherence  
 ✅ **Developer Empowerment**: Security integrated into GitHub workflows without blocking deployment  
 ✅ **Customer Trust**: Transparent security practices strengthening brand credibility
-
----
-
-## Resources
-
-### Customer Story
-
-- [Wiz Customer Story: Protecting Ledger's infrastructure](https://www.wiz.io/customers/ledger)

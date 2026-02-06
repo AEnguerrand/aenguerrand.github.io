@@ -7,7 +7,20 @@ const talks = defineCollection({
       title: z.string(),
       date: z.string(),
       author: z.array(z.string()).optional(),
+      event: z.string().optional(),
+      location: z.string().optional(),
+      summary: z.string().optional(),
+      language: z.array(z.string()).optional(),
+      sessionType: z.string().optional(),
       tags: z.array(z.string()).optional(),
+      resources: z
+        .array(
+          z.object({
+            label: z.string(),
+            url: z.string().url(),
+          })
+        )
+        .optional(),
     })
     .passthrough(),
 });

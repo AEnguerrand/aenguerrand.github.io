@@ -2,11 +2,23 @@
 author: ["Enguerrand Allamel"]
 title: "KubeCon CloudNativeCon China 2024: Securing the Supply Chain: A Practical Guide to SLSA Compliance from Build to Runtime | 保障供应链安全：从构建到运行的SLSA合规实用指南"
 date: "2024-08-21"
+event: "KubeCon + CloudNativeCon + Open Source Summit China 2024"
+location: "Hong Kong"
+language: ["English", "Chinese"]
+sessionType: "Conference talk"
+summary: "A practical, beginner-friendly walkthrough of SLSA-focused supply chain security from build pipelines to Kubernetes runtime enforcement."
 tags:
   ["kubecon", "cloudnativecon", "security", "software supply chain security"]
+resources:
+  - label: "Talk Video (YouTube)"
+    url: "https://www.youtube.com/watch?v=733HXxEnm0I"
+  - label: "English Slides"
+    url: "https://static.sched.com/hosted_files/kccncossaidevchn2024/91/English%20-%20Securing%20the%20Supply%20Chain%20A%20Practical%20Guide%20to%20SLSA%20Compliance%20from%20Build%20to%20Runtime.pdf"
+  - label: "Chinese Slides"
+    url: "https://static.sched.com/hosted_files/kccncossaidevchn2024/3d/Chinese%20%28Automatic%20Translation%29%20-%20Securing%20the%20Supply%20Chain%20A%20Practical%20Guide%20to%20SLSA%20Compliance%20from%20Build%20to%20Runtime.pdf"
+  - label: "Lab Repository"
+    url: "https://github.com/AEnguerrand/kubecon-cloudnativecon-china-2024-supply-chain-security"
 ---
-
-<iframe class="aspect-video w-full" src="https://www.youtube.com/embed/733HXxEnm0I" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Description
 
@@ -21,8 +33,6 @@ In this talk, I explore practical implementations of supply chain security withi
 - **Hardware security**: Integrating Hardware Security Modules (HSMs) for enhanced key management
 
 Key outcomes include actionable insights for achieving SLSA compliance within the CNCF ecosystem and practical strategies to secure your software supply chain from development to production.
-
-Github Repository with lab/examples: [kubecon-cloudnativecon-china-2024-supply-chain-security](https://github.com/AEnguerrand/kubecon-cloudnativecon-china-2024-supply-chain-security)
 
 ---
 
@@ -61,19 +71,3 @@ Github Repository with lab/examples: [kubecon-cloudnativecon-china-2024-supply-c
 ✅ **Hands-on Learning**: Lab exercises and examples for immediate application  
 ✅ **Tool Integration**: Comprehensive coverage of CNCF security toolchain  
 ✅ **Production Ready**: Actionable insights for securing real-world software pipelines
-
----
-
-## Resources
-
-### Conference Presentation
-
-- **Event**: KubeCon + CloudNativeCon + Open Source Summit China 2024
-- **Location**: Hong Kong
-- **Date**: August 21, 2024
-
-### Slides & Repository
-
-- [English Slides](https://static.sched.com/hosted_files/kccncossaidevchn2024/91/English%20-%20Securing%20the%20Supply%20Chain%20A%20Practical%20Guide%20to%20SLSA%20Compliance%20from%20Build%20to%20Runtime.pdf)
-- [Chinese Slides](https://static.sched.com/hosted_files/kccncossaidevchn2024/3d/Chinese%20%28Automatic%20Translation%29%20-%20Securing%20the%20Supply%20Chain%20A%20Practical%20Guide%20to%20SLSA%20Compliance%20from%20Build%20to%20Runtime.pdf)
-- [Lab Repository](https://github.com/AEnguerrand/kubecon-cloudnativecon-china-2024-supply-chain-security)

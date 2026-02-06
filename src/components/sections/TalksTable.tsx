@@ -12,6 +12,7 @@ type Talk = {
   data: {
     title: string;
     date: string;
+    event?: string;
     tags?: string[];
   };
 };
@@ -63,7 +64,14 @@ export function TalksTable({ title, talks, showViewAll = true }: TalksTableProps
                     day: "numeric",
                   })}
                 </TableCell>
-                <TableCell className="font-medium">{talk.data.title}</TableCell>
+                <TableCell className="font-medium">
+                  <div className="space-y-1">
+                    <p>{talk.data.title}</p>
+                    {talk.data.event && (
+                      <p className="text-xs font-normal text-muted-foreground">{talk.data.event}</p>
+                    )}
+                  </div>
+                </TableCell>
                 <TableCell>
                   {(talk.data.tags ?? []).length > 0 ? (
                     <div className="flex flex-wrap gap-2">

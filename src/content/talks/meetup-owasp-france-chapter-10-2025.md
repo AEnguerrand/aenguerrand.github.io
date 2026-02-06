@@ -2,6 +2,11 @@
 author: ["Enguerrand Allamel"]
 title: "Meetup OWASP France (October 2025): NPM Supply Chain AttackS - What Happened in September 2025"
 date: "2025-10-13"
+event: "OWASP France Chapter Meetup (October 2025)"
+location: "France"
+language: ["French"]
+sessionType: "Meetup talk"
+summary: "A timeline-driven incident analysis of the September 2025 npm compromise waves and practical controls for safer JavaScript pipelines."
 tags:
   [
     "npm",
@@ -11,6 +16,17 @@ tags:
     "owasp",
     "security",
   ]
+resources:
+  - label: "Socket: DuckDB npm account compromised"
+    url: "https://socket.dev/blog/duckdb-npm-account-compromised-in-continuing-supply-chain-attack"
+  - label: "Socket: npm author Qix compromised"
+    url: "https://socket.dev/blog/npm-author-qix-compromised-in-major-supply-chain-attack"
+  - label: "Wiz: Shai-Hulud npm supply chain attack"
+    url: "https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack"
+  - label: "GitHub: Plan for a more secure npm supply chain"
+    url: "https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/"
+  - label: "Lockfile guide for package-lock.json"
+    url: "https://medium.com/pavesoft/package-lock-json-the-complete-guide-2ae40175ebdd"
 ---
 
 ## Description
@@ -57,7 +73,7 @@ wrap-ansi@9.0.1 • supports-hyperlinks@4.1.1 • strip-ansi@7.1.1
 - Automated propagation leveraging stolen npm/GitHub tokens plus targeted phishing
 - Aims: publish compromised releases, exfiltrate secrets, and establish persistence through GitHub Actions
 - Demonstrated chained compromises of maintainers and repository poisoning
-- Deep dive by Wiz: [Shai-Hulud npm supply chain attack](https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack)
+- Deep dive by Wiz on the Shai-Hulud npm supply chain attack
 
 ---
 
@@ -67,7 +83,7 @@ wrap-ansi@9.0.1 • supports-hyperlinks@4.1.1 • strip-ansi@7.1.1
 - Removal of all 2FA bypass paths for publishing packages
 - Sunset of legacy automation tokens in favor of 90-day *fine-grained* tokens
 - Expansion of **Trusted Publishing** via OIDC to sign releases automatically
-- Public roadmap: [Our plan for a more secure npm supply chain](https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/)
+- Public roadmap for a more secure npm supply chain
 
 ---
 
@@ -78,13 +94,3 @@ wrap-ansi@9.0.1 • supports-hyperlinks@4.1.1 • strip-ansi@7.1.1
 - **Dedicated monitoring**: integrate services like Socket.dev, JFrog Xray, or Snyk for anomaly detection
 - **OIDC by default**: move publishing and CI/CD authentication to OIDC-based workflows
 - **Secret hygiene**: keep token lifetimes short, review permissions often, and log every credential use
-
----
-
-## Resources
-
-- [Socket: DuckDB npm account compromised](https://socket.dev/blog/duckdb-npm-account-compromised-in-continuing-supply-chain-attack)
-- [Socket: npm author Qix compromised](https://socket.dev/blog/npm-author-qix-compromised-in-major-supply-chain-attack)
-- [Wiz: Shai-Hulud npm supply chain attack](https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack)
-- [GitHub: Plan for a more secure npm supply chain](https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/)
-- [Lockfile guide for `package-lock.json`](https://medium.com/pavesoft/package-lock-json-the-complete-guide-2ae40175ebdd)

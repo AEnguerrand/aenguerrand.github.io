@@ -10,6 +10,7 @@ type Talk = {
   data: {
     title: string;
     date: string;
+    event?: string;
     tags?: string[];
   };
 };
@@ -60,6 +61,7 @@ export function TalksSpotlight({ talks }: TalksSpotlightProps) {
                 {formatDate(talk.data.date)}
               </div>
               <CardTitle className="text-xl leading-snug">{talk.data.title}</CardTitle>
+              {talk.data.event && <p className="text-sm text-muted-foreground">{talk.data.event}</p>}
             </CardHeader>
             <CardContent className="mt-auto space-y-4">
               {(talk.data.tags ?? []).length > 0 && (

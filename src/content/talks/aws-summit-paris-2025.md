@@ -2,7 +2,15 @@
 author: ["Enguerrand Allamel"]
 title: "AWS Summit Paris 2025: Rethinking Cloud Security, from Code to Real-time Protection"
 date: "2025-04-09"
+event: "AWS Summit Paris 2025"
+location: "Paris, France"
+language: ["French", "English"]
+sessionType: "Conference talk"
+summary: "How Ledger unified cloud security with Wiz from code scanning to runtime detection and automated remediation."
 tags: ["aws", "aws-summit", "security", "cloud security", "wiz"]
+resources:
+  - label: "Wiz Customer Story: Protecting Ledger's infrastructure"
+    url: "https://www.wiz.io/customers/ledger"
 ---
 
 ## Title / Titre
@@ -18,22 +26,3 @@ Découvrez comment Ledger, leader des portefeuilles sécurisés de crypto-monnai
 ### English Version
 
 Discover how Ledger, the leader in secure cryptocurrency wallets, strengthened its Cloud infrastructure security with Wiz. Through a unified approach, from real-time detection to automated remediation, Ledger was able to simplify risk management, ensure complete visibility, and democratize security across its teams.
-
----
-
-## Resources
-
-### Conference Details
-
-- **Event**: AWS Summit Paris 2025
-- **Location**: Paris, France
-- **Date**: April 9, 2025
-- **Language**: French / English
-
-### Video & Materials
-
-_Coming soon_
-
-### Related Content
-
-- [Wiz Customer Story: Protecting Ledger's infrastructure](https://www.wiz.io/customers/ledger)
