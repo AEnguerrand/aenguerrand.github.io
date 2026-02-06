@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,75&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 91% 91.4%;
+    --foreground: 201 100% 14.3%;
+
+    --card: 40 100% 97%;
+    --card-foreground: 201 100% 14.3%;
+
+    --popover: 40 100% 97%;
+    --popover-foreground: 201 100% 14.3%;
+
+    --primary: 203 39.1% 34.1%;
+    --primary-foreground: 40 100% 98.2%;
+
+    --secondary: 40 89.2% 92.7%;
+    --secondary-foreground: 201 100% 14.3%;
+
+    --muted: 38 92.6% 94.7%;
+    --muted-foreground: 203 39.1% 34.1%;
+
+    --accent: 356 82.9% 41.4%;
+    --accent-foreground: 40 100% 98.2%;
+
+    --destructive: 356 82.9% 41.4%;
+    --destructive-foreground: 40 100% 98.2%;
+
+    --border: 30 28% 78%;
+    --input: 30 28% 78%;
+    --ring: 356 82.9% 41.4%;
+
+    --radius: 1rem;
+    --font-sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+    --font-display: "Fraunces", "Iowan Old Style", "Times New Roman", serif;
+  }
+
+  .dark {
+    --background: 203 39.1% 18%;
+    --foreground: 40 91% 91.4%;
+
+    --card: 203 39.1% 20%;
+    --card-foreground: 40 91% 91.4%;
+
+    --popover: 203 39.1% 20%;
+    --popover-foreground: 40 91% 91.4%;
+
+    --primary: 203 39.1% 56.9%;
+    --primary-foreground: 201 100% 14.3%;
+
+    --secondary: 203 32% 26%;
+    --secondary-foreground: 40 91% 91.4%;
+
+    --muted: 203 30% 24%;
+    --muted-foreground: 203 34% 74%;
+
+    --accent: 356 83.3% 64.7%;
+    --accent-foreground: 201 100% 14.3%;
+
+    --destructive: 356 82.9% 41.4%;
+    --destructive-foreground: 40 100% 98.2%;
+
+    --border: 203 22% 35%;
+    --input: 203 22% 35%;
+    --ring: 356 83.3% 64.7%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 8% 0%, hsl(203 39.1% 56.9% / 0.14), transparent 34%),
+      radial-gradient(circle at 88% 12%, hsl(356 82.9% 41.4% / 0.16), transparent 30%),
+      linear-gradient(to bottom, hsl(40 100% 98%), hsl(var(--background)));
+    min-height: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    background-color: hsl(var(--accent) / 0.26);
+  }
+
+  .prose {
+    @apply text-foreground;
+  }
+
+  .prose :where(h2, h3, h4) {
+    font-family: var(--font-display);
+  }
+
+  .prose a {
+    @apply text-primary no-underline;
+  }
+
+  .prose a:hover {
+    @apply underline;
+  }
+}
+
+@layer utilities {
+  .lift-card {
+    transition: box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .lift-card:hover {
+    box-shadow: 0 20px 50px hsl(var(--foreground) / 0.1);
+    border-color: hsl(var(--border) / 0.95);
+  }
+
+  .nav-pill {
+    position: relative;
+  }
+
+  .nav-pill::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.25rem;
+    height: 2px;
+    border-radius: 9999px;
+    background-color: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 220ms ease;
+  }
+
+  .nav-pill:hover::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lift-card {
+      transition: none;
+    }
+
+    .lift-card:hover {
+      box-shadow: none;
+    }
+
+    .nav-pill::after {
+      transition: none;
+    }
+  }
+}

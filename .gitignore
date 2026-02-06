@@ -1,29 +1,19 @@
-# Hugo
-public/
-resources/
-hugo_stats.json
+# macOS / Windows
 .DS_Store
 Thumbs.db
 
-# Local Hugo server
-hugo_server.log
-
-# Node modules
+# Dependencies
 node_modules/
 
-# Optional npm cache directory
+# Build outputs / caches
+dist/
+.astro/
+
+# Package manager / tooling caches
 .npm
-
-# Optional eslint cache
 .eslintcache
-
-# Optional REPL history
 .node_repl_history
-
-# Output of 'npm pack'
 *.tgz
-
-# Yarn
 .yarn-integrity
 .yarnrc.yml
 .pnp.*

@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const talks = await getCollection("talks");
+  return talks.map((talk) => ({ params: { slug: talk.slug }, props: { talk } }));
+}
+
+const { talk } = Astro.props;
+const { Content } = await talk.render();
+---
+
+<BaseLayout title={talk.data.title}>
+  <section class="pt-8 pb-8 sm:pt-14">
+    <Card className="border-border/70 bg-card/85 shadow-[0_16px_44px_hsl(var(--foreground)/0.06)]">
+      <CardContent className="space-y-5 p-7 sm:p-9">
+        <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
+          {new Date(talk.data.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </Badge>
+        <h1 class="text-4xl leading-tight sm:text-5xl">{talk.data.title}</h1>
+        {talk.data.author && (
+          <p class="text-sm text-muted-foreground">By {talk.data.author.join(", ")}</p>
+        )}
+        {talk.data.tags && (
+          <div class="flex flex-wrap gap-2">
+            {talk.data.tags.map((tag) => (
+              <span class="rounded-full border border-border/80 bg-secondary/55 px-3 py-1 text-[11px] font-medium tracking-[0.08em] uppercase text-muted-foreground">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  </section>
+
+  <Card className="border-border/70 bg-card/90 shadow-[0_14px_36px_hsl(var(--foreground)/0.05)]">
+    <CardContent className="prose prose-headings:mt-8 prose-p:leading-relaxed max-w-none pt-8">
+      <Content />
+    </CardContent>
+  </Card>
+
+  <div class="mt-8">
+    <Button asChild variant="outline" size="sm">
+      <a href="/talks">Back to talks</a>
+    </Button>
+  </div>
+</BaseLayout>

@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+
+const { title = "Enguerrand Allamel", description } = Astro.props;
+const pageDescription =
+  description ??
+  "Staff Cloud Security Engineer focused on secure platforms, resilient systems, and supply chain integrity.";
+const pageTitle = title ? `${title} · Enguerrand Allamel` : "Enguerrand Allamel";
+const siteUrl = Astro.site ?? new URL("https://enguerrand.dev");
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL("/og-image.jpg", siteUrl).toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={pageDescription} />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Enguerrand Allamel" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body class="min-h-screen bg-background font-sans text-foreground antialiased">
+    <div class="relative isolate min-h-screen overflow-x-clip">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-28 left-[6%] -z-10 h-72 w-72 rounded-full bg-primary/20 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute top-20 right-[8%] -z-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl"
+      />
+
+      <header class="sticky top-4 z-40 mx-auto mt-4 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <nav class="flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-border/70 bg-background/85 px-5 py-4 shadow-[0_16px_40px_hsl(var(--foreground)/0.08)] backdrop-blur">
+          <a class="text-sm font-semibold tracking-[0.12em] text-foreground uppercase" href="/">Enguerrand Allamel</a>
+          <div class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/talks">Talks</a>
+            <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/resume">Resume</a>
+            <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/#contact">Contact</a>
+          </div>
+        </nav>
+      </header>
+
+      <main class="mx-auto w-full max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+        <slot />
+      </main>
+
+      <footer class="mx-auto w-full max-w-6xl px-4 pb-10 text-xs text-muted-foreground sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/70 bg-card/80 px-5 py-4">
+          <span class="tracking-[0.16em] uppercase">Security. SRE. Platform.</span>
+          <span>Based in Vancouver, BC, Canada 🇨🇦</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

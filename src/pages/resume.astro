@@ -1,0 +1,211 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Linkedin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+
+const experience = [
+  {
+    company: "Ledger",
+    period: "Apr 2022 - Present",
+    roles: [
+      {
+        title: "Staff Cloud Security Engineer",
+        period: "Sep 2024 - Present",
+        bullets: [
+          "Act as security owner and technical advisor for infrastructure and engineering teams across cloud, products, and Kubernetes platforms.",
+          "Design and lead cloud security initiatives on AWS, from posture hardening to detection and response.",
+          "Build and roll out software supply chain security practices using SLSA, Sigstore (keyless signing), GitHub Actions, Socket.dev, and JFrog while building custom APIs in Go.",
+          "Deploy and operate Wiz across cloud and on-prem environments, improving visibility and threat detection at scale.",
+          "Define and build secure architecture patterns adopted by multiple engineering teams from Data to Firmware.",
+        ],
+      },
+      {
+        title: "Senior Cloud Security Engineer",
+        period: "Apr 2024 - Sep 2024",
+        bullets: [
+          "Introduced keyless artifact signing using GitHub OIDC and Sigstore.",
+          "Laid the foundation of an organization-wide software supply chain security program (SLSA).",
+          "Contributed to security tooling rollout, including Wiz and JFrog Artifactory.",
+        ],
+      },
+      {
+        title: "Senior Site Reliability Engineer",
+        period: "Jul 2023 - Apr 2024",
+        bullets: [
+          "Technical lead for the infrastructure redesign of Ledger Recover with strict stability and security constraints.",
+          "Built and operated GitOps deployment platforms using ArgoCD, Linkerd, and Helm libraries.",
+          "Improved reliability, observability, and incident response using Datadog and Kubernetes-native tooling.",
+          "Mentored engineers and promoted SRE and DevOps best practices.",
+        ],
+      },
+      {
+        title: "Site Reliability Engineer",
+        period: "Apr 2022 - Jul 2023",
+        bullets: [
+          "Optimized private cloud and Kubernetes platforms supporting core and firmware services.",
+          "Built and maintained observability stacks using Prometheus, Grafana, Loki, and OpsGenie.",
+          "Improved CI/CD availability to 99.99% using GitHub Actions and custom Golang tooling.",
+          "Delivered self-service deployment platforms, reducing rollout time from days to minutes.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "Ubisoft",
+    period: "Jun 2021 - Apr 2022",
+    roles: [
+      {
+        title: "Cloud Engineer Kubernetes",
+        bullets: [
+          "Contributed to the design and operation of a global Kubernetes platform (OpenStack, Rancher, Prometheus).",
+          "Participated in on-call rotations for production-grade Kubernetes services supporting worldwide apps.",
+        ],
+      },
+    ],
+  },
+  {
+    company: "Equativ",
+    period: "Mar 2020 - Jun 2021",
+    roles: [
+      {
+        title: "Site Reliability Engineer",
+        bullets: [
+          "Supported a global ad-tech platform across 6 datacenters and 900+ servers, handling 30B+ daily auctions.",
+          "Designed and deployed a Kubernetes production platform on a hybrid stack (Rancher, Alibaba Cloud).",
+          "Built CI/CD pipelines and GitOps workflows using GitLab CI, Terraform, and Ansible.",
+          "Led GCP operations and drove GitLab adoption across 100+ applications.",
+          "Improved observability and incident response using Prometheus, Grafana, Datadog, and Stackdriver.",
+        ],
+      },
+    ],
+  },
+] as const;
+
+const education = [
+  {
+    school: "EPITECH - European Institute of Technology",
+    period: "2015 - 2020",
+    degree: "Expert in Information Technologies (Master's equivalent)",
+  },
+  {
+    school: "Tsinghua University",
+    period: "2018 - 2019",
+    degree: "Master's in Advanced Computing",
+  },
+] as const;
+
+const skills = [
+  ["Cloud & Platform", "Kubernetes, AWS, EKS, GitOps, Helm"],
+  ["Infrastructure as Code", "Terraform, Ansible"],
+  ["Security", "Cloud security architecture, IAM, Wiz, software supply chain security (SLSA, Sigstore, OIDC)"],
+  ["Observability", "Grafana, Prometheus, Datadog"],
+  ["CI/CD", "GitHub Actions, ArgoCD, Atlantis"],
+  ["Programming", "Go, Python, Bash"],
+] as const;
+---
+
+<BaseLayout title="Resume" description="Resume of Enguerrand Allamel, Staff Cloud Security Engineer.">
+  <section class="pt-8 pb-8 sm:pt-14">
+    <Card className="border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
+      <CardHeader className="space-y-4">
+        <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
+          Resume
+        </Badge>
+        <CardTitle className="text-4xl sm:text-5xl">Enguerrand Allamel</CardTitle>
+        <CardDescription className="max-w-3xl text-base sm:text-lg">
+          Staff Cloud Security Engineer with a strong SRE background, working hands-on with Kubernetes, AWS, Python, Go, and CI/CD in production.
+        </CardDescription>
+        <div class="pt-1">
+          <a
+            class="inline-flex h-11 items-center gap-2.5 rounded-md bg-primary px-5 text-base font-medium leading-none text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            href="https://www.linkedin.com/in/enguerrandallamel/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Linkedin className="h-4 w-4 shrink-0" />
+            <span>View LinkedIn Profile</span>
+          </a>
+        </div>
+      </CardHeader>
+    </Card>
+  </section>
+
+  <section class="space-y-6">
+    <div>
+      <h2 class="text-3xl">Work Experience</h2>
+    </div>
+
+    {experience.map((company) => (
+      <Card className="border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]">
+        <CardHeader className="space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <CardTitle className="text-2xl">{company.company}</CardTitle>
+            <span class="text-sm text-muted-foreground">{company.period}</span>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {company.roles.map((role) => (
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="text-lg font-semibold">{role.title}</h3>
+                <span class="text-sm text-muted-foreground">{role.period}</span>
+              </div>
+              <ul class="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                {role.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    ))}
+  </section>
+
+  <Separator className="my-10" />
+
+  <section class="grid gap-6 lg:grid-cols-2">
+    <Card className="border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]">
+      <CardHeader>
+        <CardTitle className="text-2xl">Education</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-5">
+        {education.map((item) => (
+          <div class="space-y-1">
+            <p class="text-base font-semibold">{item.school}</p>
+            <p class="text-sm text-muted-foreground">{item.period}</p>
+            <p class="text-sm text-muted-foreground">{item.degree}</p>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+
+    <Card className="border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]">
+      <CardHeader>
+        <CardTitle className="text-2xl">Community & Speaking</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+        <p>Speaker at KubeCon + CloudNativeCon (North America, China), AWS Summit, and CNCF / OWASP meetups.</p>
+        <p>Contributor to open-source and security projects.</p>
+      </CardContent>
+    </Card>
+  </section>
+
+  <section class="mt-6">
+    <Card className="border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]">
+      <CardHeader>
+        <CardTitle className="text-2xl">Technical Skills</CardTitle>
+      </CardHeader>
+      <CardContent className="grid gap-3">
+        {skills.map(([label, value]) => (
+          <div class="rounded-xl border border-border/70 bg-secondary/45 px-4 py-3">
+            <p class="text-sm font-semibold">{label}</p>
+            <p class="text-sm text-muted-foreground">{value}</p>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  </section>
+</BaseLayout>

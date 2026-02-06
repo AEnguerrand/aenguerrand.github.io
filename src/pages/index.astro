@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Hero } from "@/components/sections/Hero";
+import { ContactCard } from "@/components/sections/ContactCard";
+import { TalksSpotlight } from "@/components/sections/TalksSpotlight";
+import { getCollection, getEntry } from "astro:content";
+
+const talks = (await getCollection("talks"))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+const homePage = await getEntry("pages", "home");
+---
+
+<BaseLayout title="Home" description="Staff Cloud Security Engineer with a background in SRE and platform engineering.">
+  <Hero
+    currentExploringTitle={homePage?.data.currentExploringTitle}
+    currentExploringDescription={homePage?.data.currentExploringDescription}
+    currentExploringItems={homePage?.data.currentExploring}
+  />
+
+  <TalksSpotlight talks={talks} />
+
+  <ContactCard />
+</BaseLayout>
