@@ -19,9 +19,16 @@ type TalksSpotlightProps = {
 };
 
 export function TalksSpotlight({ talks }: TalksSpotlightProps) {
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
   return (
     <section className="mt-6 space-y-6 sm:mt-10">
-      <Card className="border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
+      <Card className="lift-card border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
             <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
@@ -40,20 +47,17 @@ export function TalksSpotlight({ talks }: TalksSpotlightProps) {
         </CardHeader>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {talks.map((talk) => (
+      {talks.length > 0 && (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {talks.map((talk) => (
           <Card
             key={talk.slug}
-            className="flex h-full flex-col border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]"
+            className="lift-card flex h-full flex-col border-border/70 bg-card/90 shadow-[0_12px_32px_hsl(var(--foreground)/0.05)]"
           >
             <CardHeader className="space-y-3">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.1em] text-muted-foreground">
                 <CalendarDays className="h-3.5 w-3.5" />
-                {new Date(talk.data.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
+                {formatDate(talk.data.date)}
               </div>
               <CardTitle className="text-xl leading-snug">{talk.data.title}</CardTitle>
             </CardHeader>
@@ -74,8 +78,9 @@ export function TalksSpotlight({ talks }: TalksSpotlightProps) {
               </Button>
             </CardContent>
           </Card>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

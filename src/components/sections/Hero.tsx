@@ -55,14 +55,14 @@ export function Hero({
   return (
     <section className="pt-8 pb-12 sm:pt-14">
       <div className="grid gap-6 lg:grid-cols-[1.35fr_1fr]">
-        <Card className="overflow-hidden border-border/70 shadow-[0_18px_50px_hsl(var(--foreground)/0.07)]">
+        <Card className="lift-card overflow-hidden border-border/70 shadow-[0_18px_50px_hsl(var(--foreground)/0.07)]">
           <CardHeader className="space-y-6 p-7 sm:p-9">
             <div className="flex flex-wrap items-center gap-4">
-              <div className="h-14 w-14 overflow-hidden rounded-full ring-2 ring-primary/20">
+              <div className="group h-14 w-14 overflow-hidden rounded-full ring-2 ring-primary/20">
                 <img
                   src="/avatar.jpeg"
                   alt="Enguerrand Allamel"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="eager"
                   decoding="async"
                 />
@@ -103,7 +103,7 @@ export function Hero({
           </CardContent>
         </Card>
 
-        <Card className="border-border/70 bg-card/90 shadow-[0_14px_38px_hsl(var(--foreground)/0.06)]">
+        <Card className="lift-card border-border/70 bg-card/90 shadow-[0_14px_38px_hsl(var(--foreground)/0.06)]">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">{currentExploringTitle}</CardTitle>
             <CardDescription>{currentExploringDescription}</CardDescription>
@@ -115,7 +115,7 @@ export function Hero({
               return (
                 <div
                   key={`${item.title}-${index}`}
-                  className="rounded-xl border border-border/70 bg-secondary/55 p-4"
+                  className="lift-card rounded-xl border border-border/70 bg-secondary/55 p-4"
                 >
                   <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
                     <Icon className="h-4 w-4 text-primary" />

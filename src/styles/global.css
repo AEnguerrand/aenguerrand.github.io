@@ -114,3 +114,50 @@
     @apply underline;
   }
 }
+
+@layer utilities {
+  .lift-card {
+    transition: box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .lift-card:hover {
+    box-shadow: 0 20px 50px hsl(var(--foreground) / 0.1);
+    border-color: hsl(var(--border) / 0.95);
+  }
+
+  .nav-pill {
+    position: relative;
+  }
+
+  .nav-pill::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.25rem;
+    height: 2px;
+    border-radius: 9999px;
+    background-color: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 220ms ease;
+  }
+
+  .nav-pill:hover::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lift-card {
+      transition: none;
+    }
+
+    .lift-card:hover {
+      box-shadow: none;
+    }
+
+    .nav-pill::after {
+      transition: none;
+    }
+  }
+}

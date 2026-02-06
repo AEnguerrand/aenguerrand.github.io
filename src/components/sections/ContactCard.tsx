@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 export function ContactCard() {
   return (
     <section id="contact" className="mt-16">
-      <Card className="overflow-hidden border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
+      <Card className="lift-card overflow-hidden border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
         <CardHeader className="space-y-4">
           <Badge className="w-fit border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20">
             Contact
@@ -20,7 +20,7 @@ export function ContactCard() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-5 pb-8 lg:grid-cols-[1.25fr_1fr]">
-          <div className="rounded-xl border border-border/70 bg-secondary/45 p-5">
+          <div className="lift-card rounded-xl border border-border/70 bg-secondary/45 p-5">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               <MessageSquareMore className="h-4 w-4 text-primary" />
               Happy to chat about
