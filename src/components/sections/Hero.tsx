@@ -12,7 +12,47 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function Hero() {
+type CurrentExploringItem = {
+  title: string;
+  description: string;
+};
+
+type HeroProps = {
+  currentExploringTitle?: string;
+  currentExploringDescription?: string;
+  currentExploringItems?: CurrentExploringItem[];
+};
+
+const defaultCurrentExploringItems: CurrentExploringItem[] = [
+  {
+    title: "Supply-chain trust",
+    description:
+      "Provenance, signing, and identity-based controls that are realistic for daily developer workflows.",
+  },
+  {
+    title: "Runtime security signals",
+    description:
+      "Better ways to prioritize risks using context instead of raw vulnerability counts.",
+  },
+  {
+    title: "Platform guardrails",
+    description:
+      "Designing defaults that keep teams fast without creating silent reliability or security debt.",
+  },
+];
+
+const currentExploringIcons = [ShieldCheck, Radar, Workflow];
+
+export function Hero({
+  currentExploringTitle = "Currently exploring",
+  currentExploringDescription = "Topics I'm spending time on lately.",
+  currentExploringItems,
+}: HeroProps) {
+  const items =
+    currentExploringItems && currentExploringItems.length > 0
+      ? currentExploringItems
+      : defaultCurrentExploringItems;
+
   return (
     <section className="pt-8 pb-12 sm:pt-14">
       <div className="grid gap-6 lg:grid-cols-[1.35fr_1fr]">
@@ -61,37 +101,26 @@ export function Hero() {
 
         <Card className="border-border/70 bg-card/90 shadow-[0_14px_38px_hsl(var(--foreground)/0.06)]">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Currently exploring</CardTitle>
-            <CardDescription>Topics I&apos;m spending time on lately.</CardDescription>
+            <CardTitle className="text-2xl">{currentExploringTitle}</CardTitle>
+            <CardDescription>{currentExploringDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-                <ShieldCheck className="h-4 w-4 text-primary" />
-                Supply-chain trust
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Provenance, signing, and identity-based controls that are realistic for daily developer workflows.
-              </p>
-            </div>
-            <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-                <Radar className="h-4 w-4 text-primary" />
-                Runtime security signals
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Better ways to prioritize risks using context instead of raw vulnerability counts.
-              </p>
-            </div>
-            <div className="rounded-xl border border-border/70 bg-secondary/55 p-4">
-              <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-                <Workflow className="h-4 w-4 text-primary" />
-                Platform guardrails
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Designing defaults that keep teams fast without creating silent reliability or security debt.
-              </p>
-            </div>
+            {items.map((item, index) => {
+              const Icon = currentExploringIcons[index % currentExploringIcons.length];
+
+              return (
+                <div
+                  key={`${item.title}-${index}`}
+                  className="rounded-xl border border-border/70 bg-secondary/55 p-4"
+                >
+                  <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                    <Icon className="h-4 w-4 text-primary" />
+                    {item.title}
+                  </div>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </div>
+              );
+            })}
           </CardContent>
         </Card>
       </div>
