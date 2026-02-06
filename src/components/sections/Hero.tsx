@@ -35,12 +35,13 @@ export function Hero() {
 
             <CardTitle className="max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
               Hi, I&apos;m Enguerrand. I build{" "}
-              <span className="text-primary">secure and reliable cloud platforms</span>.
+              <span className="text-primary">secure and reliable cloud platforms</span>
+              {" "}with an SRE mindset.
             </CardTitle>
             <CardDescription className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              This site is my notebook for talks, ideas, and field notes from security,
-              SRE, and platform engineering. I write about what works in production and
-              what still needs better defaults.
+              Staff Cloud Security Engineer with hands-on production experience in Kubernetes,
+              AWS, Python, Go, and CI/CD. This site is my notebook for talks, ideas, and
+              field notes from real systems.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap items-center gap-3 px-7 pb-8 sm:px-9">
@@ -48,6 +49,9 @@ export function Hero() {
               <a href="/talks">
                 Explore talks <ArrowUpRight className="h-4 w-4" />
               </a>
+            </Button>
+            <Button asChild variant="outline">
+              <a href="/resume">Read resume</a>
             </Button>
             <Button asChild variant="outline">
               <a href="#contact">Say hello</a>

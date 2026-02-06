@@ -29,7 +29,7 @@ export function TalksSpotlight({ talks }: TalksSpotlightProps) {
             </Badge>
             <CardTitle className="text-3xl sm:text-4xl">Latest talks</CardTitle>
             <CardDescription className="max-w-2xl text-base">
-              Recent conference and meetup sessions on cloud security, SRE, and platform engineering.
+              Recent sessions from KubeCon, AWS Summit, and community meetups on cloud security, SRE, and platform engineering.
             </CardDescription>
           </div>
           <Button asChild variant="outline" className="gap-2">
