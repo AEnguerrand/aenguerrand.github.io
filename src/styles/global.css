@@ -6,33 +6,33 @@
 
 @layer base {
   :root {
-    --background: 40 91% 91.4%;
+    --background: 210 42% 95%;
     --foreground: 201 100% 14.3%;
 
-    --card: 40 100% 97%;
+    --card: 210 50% 98%;
     --card-foreground: 201 100% 14.3%;
 
-    --popover: 40 100% 97%;
+    --popover: 210 50% 98%;
     --popover-foreground: 201 100% 14.3%;
 
-    --primary: 203 39.1% 34.1%;
-    --primary-foreground: 40 100% 98.2%;
+    --primary: 211 68% 45%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 40 89.2% 92.7%;
+    --secondary: 211 44% 91%;
     --secondary-foreground: 201 100% 14.3%;
 
-    --muted: 38 92.6% 94.7%;
-    --muted-foreground: 203 39.1% 34.1%;
+    --muted: 212 36% 92%;
+    --muted-foreground: 211 42% 38%;
 
     --accent: 356 82.9% 41.4%;
-    --accent-foreground: 40 100% 98.2%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 356 82.9% 41.4%;
-    --destructive-foreground: 40 100% 98.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 30 28% 78%;
-    --input: 30 28% 78%;
-    --ring: 356 82.9% 41.4%;
+    --border: 214 26% 80%;
+    --input: 214 26% 80%;
+    --ring: 211 68% 45%;
 
     --radius: 1rem;
     --font-sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
@@ -41,19 +41,19 @@
 
   .dark {
     --background: 203 39.1% 18%;
-    --foreground: 40 91% 91.4%;
+    --foreground: 210 36% 90%;
 
     --card: 203 39.1% 20%;
-    --card-foreground: 40 91% 91.4%;
+    --card-foreground: 210 36% 90%;
 
     --popover: 203 39.1% 20%;
-    --popover-foreground: 40 91% 91.4%;
+    --popover-foreground: 210 36% 90%;
 
-    --primary: 203 39.1% 56.9%;
+    --primary: 211 88% 66%;
     --primary-foreground: 201 100% 14.3%;
 
     --secondary: 203 32% 26%;
-    --secondary-foreground: 40 91% 91.4%;
+    --secondary-foreground: 210 36% 90%;
 
     --muted: 203 30% 24%;
     --muted-foreground: 203 34% 74%;
@@ -62,11 +62,11 @@
     --accent-foreground: 201 100% 14.3%;
 
     --destructive: 356 82.9% 41.4%;
-    --destructive-foreground: 40 100% 98.2%;
+    --destructive-foreground: 210 40% 98%;
 
     --border: 203 22% 35%;
     --input: 203 22% 35%;
-    --ring: 356 83.3% 64.7%;
+    --ring: 211 88% 66%;
   }
 
   * {
@@ -76,9 +76,9 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at 8% 0%, hsl(203 39.1% 56.9% / 0.14), transparent 34%),
+      radial-gradient(circle at 8% 0%, hsl(var(--primary) / 0.2), transparent 34%),
       radial-gradient(circle at 88% 12%, hsl(356 82.9% 41.4% / 0.16), transparent 30%),
-      linear-gradient(to bottom, hsl(40 100% 98%), hsl(var(--background)));
+      linear-gradient(to bottom, hsl(210 100% 98%), hsl(var(--background)));
     min-height: 100%;
   }
 
