@@ -52,22 +52,71 @@ const ogImageUrl = new URL("/og-image.jpg", siteUrl).toString();
           <a class="text-sm font-semibold tracking-[0.12em] text-foreground uppercase" href="/">Enguerrand Allamel</a>
           <div class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/talks">Talks</a>
+            <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/radar">Radar</a>
             <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/resume">Resume</a>
             <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/#contact">Contact</a>
           </div>
         </nav>
       </header>
 
-      <main class="mx-auto w-full max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+      <main class="mx-auto w-full max-w-6xl px-4 pb-20 pt-0 sm:px-6 lg:px-8">
         <slot />
       </main>
 
       <footer class="mx-auto w-full max-w-6xl px-4 pb-10 text-xs text-muted-foreground sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/70 bg-card/80 px-5 py-4">
           <span class="tracking-[0.16em] uppercase">Security. SRE. Platform.</span>
-          <span>Based in Vancouver, BC, Canada 🇨🇦</span>
+          <div class="flex items-center gap-3">
+            <span>Based in Vancouver, BC, Canada 🇨🇦</span>
+            <a class="nav-pill rounded-full border border-transparent px-3 py-1.5 text-xs hover:border-border hover:bg-secondary/70 hover:text-foreground" href="/privacy">
+              Privacy
+            </a>
+          </div>
         </div>
       </footer>
     </div>
+    <script is:inline>
+      (() => {
+        const isEditableTarget = (target) => {
+          if (!(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          const tag = target.tagName;
+          return (
+            target.isContentEditable ||
+            tag === "INPUT" ||
+            tag === "TEXTAREA" ||
+            tag === "SELECT"
+          );
+        };
+
+        window.addEventListener("keydown", (event) => {
+          if (!(event.metaKey || event.ctrlKey)) {
+            return;
+          }
+
+          if (event.key.toLowerCase() !== "k") {
+            return;
+          }
+
+          if (isEditableTarget(event.target)) {
+            return;
+          }
+
+          event.preventDefault();
+
+          const pathname = window.location.pathname.replace(/\/+$/, "");
+          if (pathname === "/search") {
+            window.dispatchEvent(new CustomEvent("site-search:focus"));
+            return;
+          }
+
+          const searchUrl = new URL("/search", window.location.origin);
+          searchUrl.searchParams.set("focus", "1");
+          window.location.assign(searchUrl.toString());
+        });
+      })();
+    </script>
   </body>
 </html>

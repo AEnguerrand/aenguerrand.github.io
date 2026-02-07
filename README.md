@@ -1,28 +1,37 @@
-# aenguerrand.github.io / enguerrand.tech
+# enguerrand.dev
 
-Personal website rebuilt with Astro + Tailwind (shadcn-style tokens).
+Personal website built with Astro + Tailwind.
 
-## Quick Start
+## Run
 
 ```bash
-# Install dependencies
 npm install
-
-# Start local development server
 npm run dev
+```
 
-# Build for production
+## Build
+
+```bash
 npm run build
 ```
 
-## Structure
+## Content
 
-- **Content**: Markdown in `src/content/`
-- **Pages**: Astro pages in `src/pages/`
-- **Layout & UI**: `src/layouts/` and `src/components/`
-- **Styles**: `src/styles/global.css`
-- **Static files**: `public/`
+- Pages: `src/pages/`
+- Talks and page content: `src/content/`
+- Components: `src/components/`
 
-## Deployment
+## GitHub Stars
 
-Build output is in `dist/` by default. Configure your GitHub Pages workflow to run `npm run build` and publish the `dist/` directory.
+The `/github-stars` page is generated from:
+
+- `data/starred-lists.json`
+- `public/data/starred-groups.json`
+
+Refresh data:
+
+```bash
+npm run stars:refresh
+```
+
+Stars scripts use `uv`. Optional env vars: `GITHUB_TOKEN`, `GITHUB_COOKIE`.

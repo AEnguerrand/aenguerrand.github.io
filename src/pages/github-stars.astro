@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { GitHubStars } from "@/components/sections/GitHubStars";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { readFile } from "node:fs/promises";
+
+type StarredRepository = {
+  id: number;
+  full_name: string;
+  html_url: string;
+  description: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  archived: boolean;
+  fork: boolean;
+  topics: string[];
+  updated_at: string;
+  starred_at: string | null;
+};
+
+type StarredGroup = {
+  slug: string;
+  name: string;
+  description?: string;
+  repos: StarredRepository[];
+};
+
+type StarredDataset = {
+  username: string;
+  generated_at: string;
+  total_repos: number;
+  groups: StarredGroup[];
+};
+
+let starredDataset: StarredDataset | null = null;
+try {
+  const dataPath = new URL("../../public/data/starred-groups.json", import.meta.url);
+  const raw = await readFile(dataPath, "utf-8");
+  starredDataset = JSON.parse(raw) as StarredDataset;
+} catch {
+  starredDataset = null;
+}
+
+const listCount = starredDataset?.groups.filter((group) => group.repos.length > 0).length ?? 0;
+---
+
+<BaseLayout
+  title="GitHub Stars"
+  description="A curated collection of my starred GitHub repositories, organized by topic."
+>
+  <section class="pt-3 pb-8 sm:pt-6">
+    <Card className="border-border/70 bg-card/85 shadow-[0_18px_46px_hsl(var(--foreground)/0.06)]">
+      <CardHeader className="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
+            GitHub
+          </Badge>
+          <a
+            href="/radar"
+            class="inline-flex items-center gap-1 rounded-full border border-border/80 bg-secondary/55 px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to radar
+          </a>
+        </div>
+        <CardTitle className="text-4xl sm:text-5xl">Curated GitHub Stars</CardTitle>
+        <CardDescription className="max-w-3xl text-base sm:text-lg">
+          Repositories I find useful, organized by topic. Use the quick selector and expand only the lists you want to browse.
+        </CardDescription>
+        {starredDataset && (
+          <div class="flex flex-wrap gap-2">
+            <span class="rounded-full border border-border/80 bg-secondary/55 px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
+              {starredDataset.total_repos} Stars
+            </span>
+            <span class="rounded-full border border-border/80 bg-secondary/55 px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
+              {listCount} Lists
+            </span>
+          </div>
+        )}
+      </CardHeader>
+    </Card>
+  </section>
+
+  <section>
+    <GitHubStars dataset={starredDataset} />
+  </section>
+</BaseLayout>

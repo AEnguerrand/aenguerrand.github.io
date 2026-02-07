@@ -1,0 +1,449 @@
+---
+type SearchItem = {
+  id: string;
+  kind: "talk" | "page";
+  title: string;
+  href: string;
+  summary?: string;
+  content?: string;
+  tags?: string[];
+  event?: string;
+  date?: string;
+};
+
+type Props = {
+  items: SearchItem[];
+  placeholder?: string;
+};
+
+const { items, placeholder = "Search" } = Astro.props as Props;
+const componentId = "site-search-root";
+
+const compareByDate = (a?: string, b?: string) => {
+  const aTime = a ? new Date(a).getTime() : 0;
+  const bTime = b ? new Date(b).getTime() : 0;
+  return bTime - aTime;
+};
+
+const initialItems = items
+  .slice()
+  .sort((a, b) => compareByDate(a.date, b.date) || a.title.localeCompare(b.title))
+  .slice(0, 30);
+
+const formatDate = (value?: string) => {
+  if (!value) {
+    return null;
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
+const getPreview = (item: SearchItem) => {
+  if (item.summary && item.summary.trim().length > 0) {
+    return item.summary;
+  }
+
+  const content = item.content?.trim();
+  if (!content) {
+    return null;
+  }
+
+  if (content.length <= 180) {
+    return content;
+  }
+
+  return `${content.slice(0, 180)}...`;
+};
+---
+
+<div id={componentId} class="rounded-lg border border-border/70 bg-card/90 text-card-foreground shadow-[0_12px_34px_hsl(var(--foreground)/0.05)]">
+  <div class="space-y-5 p-6 sm:p-7">
+    <div class="space-y-3">
+      <label
+        for="site-search-input"
+        class="text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground"
+      >
+        Query
+      </label>
+      <div class="relative">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input
+          id="site-search-input"
+          data-search-input
+          type="text"
+          placeholder={placeholder}
+          autocomplete="off"
+          class="flex h-11 w-full rounded-md border border-border/80 bg-background/70 px-3 py-2 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button
+        type="button"
+        data-search-filter="all"
+        class="rounded-full border border-border/90 bg-secondary/70 px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-foreground transition-colors hover:bg-secondary/70"
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-search-filter="talk"
+        class="rounded-full border border-border/70 bg-background/60 px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
+      >
+        Talks
+      </button>
+      <button
+        type="button"
+        data-search-filter="page"
+        class="rounded-full border border-border/70 bg-background/60 px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
+      >
+        Pages
+      </button>
+    </div>
+
+    <p class="text-xs text-muted-foreground" data-search-count>
+      Showing {initialItems.length} recent entries
+    </p>
+
+    <ul class="space-y-2.5" data-search-results>
+      {initialItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="block rounded-xl border border-border/70 bg-background/65 p-4 transition-colors hover:bg-secondary/45"
+          >
+            <div class="mb-1.5 flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center rounded-full border border-border/70 bg-secondary/60 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-secondary-foreground">
+                {item.kind === "talk" ? "Talk" : "Page"}
+              </span>
+              {formatDate(item.date) && (
+                <span class="text-xs text-muted-foreground">{formatDate(item.date)}</span>
+              )}
+              {item.event && <span class="text-xs text-muted-foreground">{item.event}</span>}
+            </div>
+            <p class="text-base font-semibold text-foreground">{item.title}</p>
+            {getPreview(item) && (
+              <p class="mt-1 text-sm text-muted-foreground">{getPreview(item)}</p>
+            )}
+            {(item.tags ?? []).length > 0 && (
+              <div class="mt-2 flex flex-wrap gap-1.5">
+                {(item.tags ?? []).slice(0, 4).map((tag) => (
+                  <span class="rounded-full border border-border/80 bg-secondary/50 px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] uppercase text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div
+      data-search-empty
+      class="hidden rounded-xl border border-border/70 bg-background/65 p-4 text-sm text-muted-foreground"
+    >
+      No matches found. Try a broader keyword or switch filter.
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ componentId, items }}>
+  (() => {
+    const root = document.getElementById(componentId);
+    if (!root) {
+      return;
+    }
+
+    const input = root.querySelector("[data-search-input]");
+    const count = root.querySelector("[data-search-count]");
+    const results = root.querySelector("[data-search-results]");
+    const empty = root.querySelector("[data-search-empty]");
+    const filterButtons = Array.from(root.querySelectorAll("[data-search-filter]"));
+
+    if (!input || !count || !results || !empty) {
+      return;
+    }
+
+    const state = {
+      query: "",
+      filter: "all",
+    };
+
+    const stripAccents = (value) => {
+      try {
+        return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      } catch {
+        return value;
+      }
+    };
+
+    const normalize = (value) => stripAccents(String(value ?? "").toLowerCase().trim());
+
+    const compareByDate = (a, b) => {
+      const aTime = a ? new Date(a).getTime() : 0;
+      const bTime = b ? new Date(b).getTime() : 0;
+      return bTime - aTime;
+    };
+
+    const formatDate = (value) => {
+      if (!value) {
+        return null;
+      }
+
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) {
+        return null;
+      }
+
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    };
+
+    const scoreItem = (item, tokens) => {
+      const title = normalize(item.title);
+      const summary = normalize(item.summary);
+      const content = normalize(item.content);
+      const tags = (item.tags ?? []).map((tag) => normalize(tag));
+      const event = normalize(item.event);
+      const text = `${title} ${summary} ${tags.join(" ")} ${event} ${content}`;
+
+      let score = 0;
+      for (const token of tokens) {
+        if (!text.includes(token)) {
+          return -1;
+        }
+
+        if (title.startsWith(token)) {
+          score += 8;
+        } else if (title.includes(token)) {
+          score += 6;
+        }
+
+        if (tags.some((tag) => tag.includes(token))) {
+          score += 4;
+        }
+
+        if (event.includes(token)) {
+          score += 3;
+        }
+
+        if (summary.includes(token)) {
+          score += 2;
+        }
+
+        if (content.includes(token)) {
+          score += 1;
+        }
+      }
+
+      return score;
+    };
+
+    const setFilterButtonStyles = () => {
+      for (const button of filterButtons) {
+        const filter = button.getAttribute("data-search-filter");
+        const isActive = filter === state.filter;
+
+        button.classList.remove(
+          "border-border/90",
+          "bg-secondary/70",
+          "text-foreground",
+          "hover:bg-secondary/70"
+        );
+        button.classList.remove(
+          "border-border/70",
+          "bg-background/60",
+          "text-muted-foreground",
+          "hover:bg-secondary/50",
+          "hover:text-foreground"
+        );
+
+        if (isActive) {
+          button.classList.add(
+            "border-border/90",
+            "bg-secondary/70",
+            "text-foreground",
+            "hover:bg-secondary/70"
+          );
+        } else {
+          button.classList.add(
+            "border-border/70",
+            "bg-background/60",
+            "text-muted-foreground",
+            "hover:bg-secondary/50",
+            "hover:text-foreground"
+          );
+        }
+      }
+    };
+
+    const createTag = (name, className, text) => {
+      const el = document.createElement(name);
+      if (className) {
+        el.className = className;
+      }
+      if (text) {
+        el.textContent = text;
+      }
+      return el;
+    };
+
+    const createResultItem = (item) => {
+      const li = document.createElement("li");
+      const link = createTag(
+        "a",
+        "block rounded-xl border border-border/70 bg-background/65 p-4 transition-colors hover:bg-secondary/45"
+      );
+      link.href = item.href;
+
+      const topRow = createTag("div", "mb-1.5 flex flex-wrap items-center gap-2");
+      const kind = createTag(
+        "span",
+        "inline-flex items-center rounded-full border border-border/70 bg-secondary/60 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-secondary-foreground",
+        item.kind === "talk" ? "Talk" : "Page"
+      );
+      topRow.appendChild(kind);
+
+      const itemDate = formatDate(item.date);
+      if (itemDate) {
+        topRow.appendChild(createTag("span", "text-xs text-muted-foreground", itemDate));
+      }
+
+      if (item.event) {
+        topRow.appendChild(createTag("span", "text-xs text-muted-foreground", item.event));
+      }
+
+      link.appendChild(topRow);
+      link.appendChild(createTag("p", "text-base font-semibold text-foreground", item.title));
+
+      const preview =
+        item.summary && item.summary.trim().length > 0
+          ? item.summary
+          : item.content
+            ? item.content.slice(0, 180) + (item.content.length > 180 ? "..." : "")
+            : "";
+
+      if (preview) {
+        link.appendChild(createTag("p", "mt-1 text-sm text-muted-foreground", preview));
+      }
+
+      if ((item.tags ?? []).length > 0) {
+        const tagsRow = createTag("div", "mt-2 flex flex-wrap gap-1.5");
+        for (const tag of (item.tags ?? []).slice(0, 4)) {
+          tagsRow.appendChild(
+            createTag(
+              "span",
+              "rounded-full border border-border/80 bg-secondary/50 px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] uppercase text-muted-foreground",
+              tag
+            )
+          );
+        }
+        link.appendChild(tagsRow);
+      }
+
+      li.appendChild(link);
+      return li;
+    };
+
+    const render = () => {
+      const tokens = normalize(state.query)
+        .split(/\s+/)
+        .map((token) => token.trim())
+        .filter(Boolean);
+
+      const selectedItems = items.filter(
+        (item) => state.filter === "all" || item.kind === state.filter
+      );
+
+      let renderedItems;
+      if (tokens.length === 0) {
+        renderedItems = selectedItems
+          .slice()
+          .sort((a, b) => compareByDate(a.date, b.date) || a.title.localeCompare(b.title))
+          .slice(0, 30);
+      } else {
+        renderedItems = selectedItems
+          .map((item) => ({ item, score: scoreItem(item, tokens) }))
+          .filter((entry) => entry.score >= 0)
+          .sort(
+            (a, b) =>
+              b.score - a.score ||
+              compareByDate(a.item.date, b.item.date) ||
+              a.item.title.localeCompare(b.item.title)
+          )
+          .map((entry) => entry.item)
+          .slice(0, 50);
+      }
+
+      if (tokens.length > 0) {
+        count.textContent = `${renderedItems.length} result${renderedItems.length === 1 ? "" : "s"}`;
+      } else {
+        count.textContent = `Showing ${renderedItems.length} recent entries`;
+      }
+
+      results.replaceChildren(...renderedItems.map((item) => createResultItem(item)));
+      empty.classList.toggle("hidden", renderedItems.length > 0);
+      results.classList.toggle("hidden", renderedItems.length === 0);
+      setFilterButtonStyles();
+    };
+
+    for (const button of filterButtons) {
+      button.addEventListener("click", () => {
+        const nextFilter = button.getAttribute("data-search-filter");
+        state.filter = nextFilter || "all";
+        render();
+      });
+    }
+
+    input.addEventListener("input", (event) => {
+      state.query = event.currentTarget?.value ?? "";
+      render();
+    });
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const initialQuery = searchParams.get("q");
+    if (initialQuery) {
+      state.query = initialQuery;
+      input.value = initialQuery;
+    }
+
+    if (searchParams.get("focus") === "1") {
+      requestAnimationFrame(() => {
+        input.focus();
+      });
+    }
+
+    window.addEventListener("site-search:focus", () => {
+      input.focus();
+    });
+
+    render();
+  })();
+</script>

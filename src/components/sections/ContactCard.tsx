@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export function ContactCard() {
   return (
-    <section id="contact" className="mt-16">
+    <section id="contact" className="mt-10 sm:mt-12">
       <Card className="lift-card overflow-hidden border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
         <CardHeader className="space-y-4">
           <Badge className="w-fit border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20">

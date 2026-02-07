@@ -28,7 +28,7 @@ export function TalksSpotlight({ talks }: TalksSpotlightProps) {
     });
 
   return (
-    <section className="mt-6 space-y-6 sm:mt-10">
+    <section className="mt-2 space-y-6 sm:mt-4">
       <Card className="lift-card border-border/70 bg-card/90 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">

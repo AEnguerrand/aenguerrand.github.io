@@ -53,7 +53,7 @@ export function Hero({
       : defaultCurrentExploringItems;
 
   return (
-    <section className="pt-8 pb-12 sm:pt-14">
+    <section className="pt-3 pb-12 sm:pt-6">
       <div className="grid gap-6 lg:grid-cols-[1.35fr_1fr]">
         <Card className="lift-card overflow-hidden border-border/70 shadow-[0_18px_50px_hsl(var(--foreground)/0.07)]">
           <CardHeader className="space-y-6 p-7 sm:p-9">
@@ -96,6 +96,9 @@ export function Hero({
             </Button>
             <Button asChild variant="outline">
               <a href="/resume">Read resume</a>
+            </Button>
+            <Button asChild variant="outline">
+              <a href="/radar">Open radar</a>
             </Button>
             <Button asChild variant="outline">
               <a href="#contact">Say hello</a>

@@ -1,15 +1,180 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteSearch from "@/components/sections/SiteSearch.astro";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { getEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+import { readFile } from "node:fs/promises";
+
+type SearchItem = {
+  id: string;
+  kind: "talk" | "page";
+  title: string;
+  href: string;
+  summary?: string;
+  content?: string;
+  tags?: string[];
+  event?: string;
+  date?: string;
+};
+
+function collapseWhitespace(value: string): string {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function stripMarkdown(value: string): string {
+  return value
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]+`/g, " ")
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)]\([^)]*\)/g, " $1 ")
+    .replace(/^>\s?/gm, " ")
+    .replace(/^#{1,6}\s+/gm, " ")
+    .replace(/[*_~]/g, " ");
+}
+
+function stripAstroSource(value: string): string {
+  let source = value;
+
+  if (source.startsWith("---")) {
+    const frontmatterEnd = source.indexOf("\n---", 3);
+    if (frontmatterEnd !== -1) {
+      source = source.slice(frontmatterEnd + 4);
+    }
+  }
+
+  source = source
+    .replace(/^import\s.+$/gm, " ")
+    .replace(/class(Name)?=\{[^}]*}/g, " ")
+    .replace(/class(Name)?="[^"]*"/g, " ")
+    .replace(/class(Name)?='[^']*'/g, " ")
+    .replace(/href=\{[^}]*}/g, " ")
+    .replace(/href="[^"]*"/g, " ")
+    .replace(/href='[^']*'/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<\/?[^>]+>/g, " ")
+    .replace(/\{[^}]*}/g, " ");
+
+  return source;
+}
+
+function toSearchText(value: string | undefined, maxLength = 4500): string {
+  if (!value) {
+    return "";
+  }
+
+  const cleaned = collapseWhitespace(stripMarkdown(value));
+  if (cleaned.length <= maxLength) {
+    return cleaned;
+  }
+
+  return cleaned.slice(0, maxLength);
+}
+
+async function readSearchableAstroFile(path: URL): Promise<string> {
+  try {
+    const source = await readFile(path, "utf-8");
+    return toSearchText(stripAstroSource(source));
+  } catch {
+    return "";
+  }
+}
 
 const page = await getEntry("pages", "search");
-const { Content } = await page.render();
+const talks = await getCollection("talks");
+
+const [
+  homePageContent,
+  heroSectionContent,
+  talksPageContent,
+  radarPageContent,
+  starsPageContent,
+  resumePageContent,
+  privacyPageContent,
+] = await Promise.all([
+  readSearchableAstroFile(new URL("./index.astro", import.meta.url)),
+  readSearchableAstroFile(new URL("../components/sections/Hero.tsx", import.meta.url)),
+  readSearchableAstroFile(new URL("./talks/index.astro", import.meta.url)),
+  readSearchableAstroFile(new URL("./radar.astro", import.meta.url)),
+  readSearchableAstroFile(new URL("./github-stars.astro", import.meta.url)),
+  readSearchableAstroFile(new URL("./resume.astro", import.meta.url)),
+  readSearchableAstroFile(new URL("./privacy.astro", import.meta.url)),
+]);
+
+const talkItems: SearchItem[] = talks.map((talk) => ({
+  id: `talk-${talk.slug}`,
+  kind: "talk",
+  title: talk.data.title,
+  href: `/talks/${talk.slug}`,
+  summary: talk.data.summary,
+  content: toSearchText(talk.body),
+  tags: talk.data.tags ?? [],
+  event: talk.data.event,
+  date: talk.data.date,
+}));
+
+const pageItems: SearchItem[] = [
+  {
+    id: "page-home",
+    kind: "page",
+    title: "Home",
+    href: "/",
+    summary: "Landing page with spotlighted talks and current exploration topics.",
+    content: `${homePageContent} ${heroSectionContent}`.trim(),
+  },
+  {
+    id: "page-talks",
+    kind: "page",
+    title: "Talks",
+    href: "/talks",
+    summary: "Conference talks, workshops, resources, and topic index.",
+    content: talksPageContent,
+  },
+  {
+    id: "page-radar",
+    kind: "page",
+    title: "Radar",
+    href: "/radar",
+    summary: "Curated hub for repositories and quick site search.",
+    content: radarPageContent,
+  },
+  {
+    id: "page-stars",
+    kind: "page",
+    title: "GitHub Stars",
+    href: "/github-stars",
+    summary: "Starred repositories organized into topic-based lists.",
+    content: starsPageContent,
+  },
+  {
+    id: "page-resume",
+    kind: "page",
+    title: "Resume",
+    href: "/resume",
+    summary: "Experience summary and core skills.",
+    content: resumePageContent,
+  },
+  {
+    id: "page-privacy",
+    kind: "page",
+    title: "Privacy",
+    href: "/privacy",
+    summary: "Website privacy and data handling information.",
+    content: privacyPageContent,
+  },
+];
+
+const searchItems: SearchItem[] = [...talkItems, ...pageItems];
+const placeholder = page.data.placeholder ?? "Search talks, topics, and pages";
+
+const hasBodyContent = (page.body ?? "").trim().length > 0;
+const renderedPage = hasBodyContent ? await page.render() : null;
+const PageContent = renderedPage?.Content;
 ---
 
 <BaseLayout title={page.data.title ?? "Search"}>
-  <section class="pt-8 pb-8 sm:pt-14">
+  <section class="pt-3 pb-8 sm:pt-6">
     <Card className="border-border/70 bg-card/85 shadow-[0_16px_42px_hsl(var(--foreground)/0.06)]">
       <CardContent className="space-y-4 p-7 sm:p-9">
         <Badge variant="secondary" className="w-fit border border-border/70 bg-secondary/65">
@@ -23,9 +188,13 @@ const { Content } = await page.render();
     </Card>
   </section>
 
-  <Card className="border-border/70 bg-card/90 shadow-[0_12px_34px_hsl(var(--foreground)/0.05)]">
-    <CardContent className="prose max-w-none pt-8">
-      <Content />
-    </CardContent>
-  </Card>
+  <SiteSearch items={searchItems} placeholder={placeholder} />
+
+  {hasBodyContent && PageContent && (
+    <Card className="mt-6 border-border/70 bg-card/90 shadow-[0_12px_34px_hsl(var(--foreground)/0.05)]">
+      <CardContent className="prose max-w-none pt-8">
+        <PageContent />
+      </CardContent>
+    </Card>
+  )}
 </BaseLayout>

@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,75&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "@fontsource-variable/fraunces/wght.css";
+@import "@fontsource-variable/space-grotesk/wght.css";
 
 @tailwind base;
 @tailwind components;
@@ -35,8 +36,8 @@
     --ring: 211 68% 45%;
 
     --radius: 1rem;
-    --font-sans: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
-    --font-display: "Fraunces", "Iowan Old Style", "Times New Roman", serif;
+    --font-sans: "Space Grotesk Variable", "Avenir Next", "Segoe UI", sans-serif;
+    --font-display: "Fraunces Variable", "Iowan Old Style", "Times New Roman", serif;
   }
 
   .dark {
