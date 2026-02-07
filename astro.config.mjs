@@ -5,6 +5,6 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://aenguerrand.github.io",
+  site: "https://enguerrand.dev",
   integrations: [tailwind({ applyBaseStyles: false }), mdx(), react(), sitemap()],
 });

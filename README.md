@@ -15,6 +15,26 @@ npm run dev
 npm run build
 ```
 
+## Deploy (Cloudflare Workers - Static Assets)
+
+This site is deployed as static assets through Cloudflare Workers using `wrangler.toml`.
+
+### Workers Builds (recommended)
+
+Connect this repository in Cloudflare Workers Builds and use:
+
+- Root directory: `.`
+- Build command: `npm ci && npm run build`
+- Deploy command: `npx wrangler deploy`
+
+`wrangler.toml` defines the static assets directory (`dist`) and HTML/404 handling.
+
+### Local deploy (optional)
+
+```bash
+npm run deploy:cf
+```
+
 ## Content
 
 - Pages: `src/pages/`

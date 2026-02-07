@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy:cf": "npm run build && npx wrangler deploy",
     "stars:import-ui": "uv run scripts/import_starred_lists_from_ui.py",
     "stars:sync": "uv run scripts/sync_starred_lists.py",
     "stars:refresh": "npm run stars:import-ui && npm run stars:sync"
