@@ -11,7 +11,10 @@ const talks = (await getCollection("talks"))
 const homePage = await getEntry("pages", "home");
 ---
 
-<BaseLayout title="Home" description="Staff Cloud Security Engineer with a background in SRE and platform engineering.">
+<BaseLayout
+  title="Home"
+  description="Staff Cloud Security Engineer with a background in SRE and platform engineering."
+>
   <Hero
     currentExploringTitle={homePage?.data.currentExploringTitle}
     currentExploringDescription={homePage?.data.currentExploringDescription}
