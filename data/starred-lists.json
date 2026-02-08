@@ -498,6 +498,7 @@
         "actions/checkout",
         "actions/create-github-app-token",
         "actions/publish-action",
+        "actions/scaleset",
         "antonbabenko/serverless.tf",
         "apache/incubator-devlake-helm-chart",
         "changesets/action",
