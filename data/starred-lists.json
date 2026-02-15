@@ -112,6 +112,7 @@
         "traefik/traefik",
         "TwiN/gatus",
         "utkuozdemir/pv-migrate",
+        "ViktorUJ/cks",
         "wolfi-dev/os"
       ]
     },
@@ -570,13 +571,13 @@
         "dagger/container-use",
         "google/mcp",
         "grafana/mcp-grafana",
-        "invariantlabs-ai/mcp-scan",
         "jfrog/mcp-jfrog",
         "microsoft/playwright-mcp",
         "MiguelsPizza/WebMCP",
         "ModelContextProtocol-Security/modelcontextprotocol-security.io",
         "modelcontextprotocol/inspector",
         "omnara-ai/omnara",
+        "snyk/agent-scan",
         "stacklok/toolhive",
         "stacklok/toolhive-registry-server",
         "steveyegge/gastown",
