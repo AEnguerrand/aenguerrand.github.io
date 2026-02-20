@@ -79,8 +79,7 @@ export function Hero({
 
             <CardTitle className="max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
               Hi, I&apos;m Enguerrand. I build{" "}
-              <span className="text-primary">secure and reliable cloud platforms</span>
-              {" "}with an SRE mindset.
+              <span className="text-primary">secure and reliable cloud platforms</span>.
             </CardTitle>
             <CardDescription className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Staff Cloud Security Engineer with hands-on production experience in Kubernetes,
